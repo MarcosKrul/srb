@@ -24,6 +24,12 @@
     "forceConsistentCasingInFileNames": true,
     
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@infra/*": ["./src/infra/*"],
+      "@config/*": ["./src/config/*"],
+      "@errors/*": ["./src/errors/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@middlewares/*": ["./src/middlewares/*"]
+    }
   }
 }
