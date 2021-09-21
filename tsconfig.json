@@ -29,7 +29,11 @@
       "@config/*": ["./src/config/*"],
       "@errors/*": ["./src/errors/*"],
       "@helpers/*": ["./src/helpers/*"],
-      "@middlewares/*": ["./src/middlewares/*"]
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@common/*": ["./src/common/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@repositories/*": ["./src/repositories/*"],
+      "@containers/*": ["./src/containers/*"]
     }
   }
 }

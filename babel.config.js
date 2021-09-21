@@ -14,6 +14,10 @@ module.exports = {
         "@middlewares": "./src/middlewares",
         "@infra": "./src/infra",
         "@helpers": "./src/helpers",
+        "@common": "./src/common",
+        "@controllers": "./src/controllers",
+        "@repositories": "./src/repositories",
+        "@containers": "./src/containers",
       }}
     ],
   ],
