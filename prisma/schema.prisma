@@ -6,3 +6,56 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model Profile {
+  bio            String
+  avatar         String      @db.VarChar(255)
+  userId         String      @id @db.Uuid @map("user_id")
+  user           User        @relation(fields: [userId], references: [id])
+
+  @@map(name: "profile")
+}
+
+
+model Employee {
+  cpf            String      @db.VarChar(16)
+  userId         String      @id @db.Uuid @map("user_id")
+  user           User        @relation(fields: [userId], references: [id])
+
+  @@map(name: "employee")
+}
+
+
+model Access {
+  attempts       Int         
+  blocked        Boolean
+  userId         String      @id @db.Uuid @map("user_id")
+  user           User        @relation(fields: [userId], references: [id])
+
+  @@map(name: "access")
+}
+
+
+model UserGroup {
+  userId         String      @id @db.Uuid @map("user_id")
+  user           User        @relation(fields: [userId], references: [id])
+  group          String      @db.VarChar(32)
+
+  @@map(name: "user_group")
+}
+
+
+model User {
+  id             String      @id @db.Uuid
+  name           String      @db.VarChar(255)
+  password       String      @db.VarChar(255)
+  createdAt      DateTime    @map("created_at")
+
+  access         Access?
+  profile        Profile?
+  employee       Employee?
+  userGroup      UserGroup?
+
+  @@map(name: "user")
+}
