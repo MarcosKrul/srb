@@ -10,7 +10,8 @@ module.exports = {
     [
       "module-resolver", { alias: { 
         "@config": "./src/config",
-        "@errors": "./src/errors",
+        "@error": "./src/handlers/errors",
+        "@success": "./src/handlers/success",
         "@middlewares": "./src/middlewares",
         "@infra": "./src/infra",
         "@helpers": "./src/helpers",

@@ -27,7 +27,8 @@
     "paths": {
       "@infra/*": ["./src/infra/*"],
       "@config/*": ["./src/config/*"],
-      "@errors/*": ["./src/errors/*"],
+      "@error/*": ["src/handlers/errors/*"],
+      "@success/*": ["src/handlers/success/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@middlewares/*": ["./src/middlewares/*"],
       "@common/*": ["./src/common/*"],
