@@ -11,51 +11,86 @@ datasource db {
 model Profile {
   bio            String
   avatar         String      @db.VarChar(255)
-  userId         String      @id @db.Uuid @map("user_id")
-  user           User        @relation(fields: [userId], references: [id])
+  entityId       String      @id @db.Uuid @map("entity_id")
 
   @@map(name: "profile")
-}
-
-
-model Employee {
-  cpf            String      @db.VarChar(16)
-  userId         String      @id @db.Uuid @map("user_id")
-  user           User        @relation(fields: [userId], references: [id])
-
-  @@map(name: "employee")
 }
 
 
 model Access {
   attempts       Int         
   blocked        Boolean
-  userId         String      @id @db.Uuid @map("user_id")
-  user           User        @relation(fields: [userId], references: [id])
+  entityId       String      @id @db.Uuid @map("entity_id")
 
   @@map(name: "access")
 }
 
 
 model UserGroup {
-  userId         String      @id @db.Uuid @map("user_id")
-  user           User        @relation(fields: [userId], references: [id])
+  id             Int         @id() @default(autoincrement())
   group          String      @db.VarChar(32)
+
+  student        Student?
+  roles          Roles?
+  employee       Employee?
 
   @@map(name: "user_group")
 }
 
 
-model User {
+model Roles {
+  id             Int         @id() @default(autoincrement())
+  role           String      @db.VarChar(32)
+
+  groupId        Int         @map("group_id")
+  group          UserGroup   @relation(fields: [groupId], references: [id])
+
+  @@map(name: "roles")
+}
+
+
+model Email {
+  id             Int         @id() @default(autoincrement())
+  advertising    Boolean     @db.Boolean()
+  notifications  Boolean     @db.Boolean()
+  primary        String      @db.VarChar(100)
+  secondary      String      @db.VarChar(100)
+
+  student        Student?
+  employee       Employee?
+
+  @@map(name: "email")
+}
+
+
+model Employee {
   id             String      @id @db.Uuid
+  cpf            String      @db.VarChar(16)
   name           String      @db.VarChar(255)
   password       String      @db.VarChar(255)
   createdAt      DateTime    @map("created_at")
 
-  access         Access?
-  profile        Profile?
-  employee       Employee?
-  userGroup      UserGroup?
+  groupId        Int         @map("group_id")
+  group          UserGroup   @relation(fields: [groupId], references: [id])
+  emailId        Int         @map("email_id")
+  email          Email       @relation(fields: [emailId], references: [id])
 
-  @@map(name: "user")
+  @@map(name: "employee")
+}
+
+
+model Student {
+  id             String      @id @db.Uuid
+  registration   String      @db.VarChar(32)
+  grade          String      @db.VarChar(32)
+  password       String      @db.VarChar(255)
+  name           String      @db.VarChar(255)
+  createdAt      DateTime    @map("created_at")
+
+  groupId        Int         @map("group_id")
+  group          UserGroup   @relation(fields: [groupId], references: [id])
+  emailId        Int         @map("email_id")
+  email          Email       @relation(fields: [emailId], references: [id])
+
+  @@map(name: "student")
 }
