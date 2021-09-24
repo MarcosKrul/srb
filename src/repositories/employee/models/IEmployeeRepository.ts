@@ -1,7 +1,9 @@
 import { Employee } from "@prisma/client";
 
 interface IEmployeeRepository {
-  read(): Employee[];
+  getAll(): Promise<Employee[]>;
+
+  save(employee: Employee): Promise<Employee>;
 }
 
 export { IEmployeeRepository };

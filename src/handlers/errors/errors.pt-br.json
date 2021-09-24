@@ -3,6 +3,22 @@
     {
       "key": "ErrorInternal",
       "label": "Ocorreu um erro interno no servidor."
+    },
+    {
+      "key": "ErrorReadEmployees",
+      "label": "Ocorreu um erro ao recuperar os funcionários."
+    },
+    {
+      "key": "ErrorCreateEmployee",
+      "label": "Ocorreu um erro ao criar o funcionário."
+    },
+    {
+      "key": "ErrorEmailRequired",
+      "label": "O E-mail é obrigatório."
+    },
+    {
+      "key": "ErrorEmailAlreadyExits",
+      "label": "O E-mail informado já está cadastrado."
     }
   ]
 }

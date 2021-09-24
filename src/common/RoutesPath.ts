@@ -1,6 +1,8 @@
 class RoutesPath {
   public static readonly READING_ROUTE: string = "/read";
 
+  public static readonly CREATION_ROUTE: string = "/create";
+
   public static readonly EMPLOYEE_ROUTES_PREFIX: string = "/employee";
 }
 

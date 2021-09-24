@@ -10,8 +10,13 @@ export class AppError {
     this.statusCode = statusCode;
   }
 
-  public static getErrorMessage(key: string): string {
+  public static getErrorMessage(key: string, err?: any): string {
+    if (err && err instanceof AppError) return err.message;
     const { label } = errors.filter((item) => item.key === key)[0];
     return label;
+  }
+
+  public static getErrorStatusCode(error: any): number {
+    return error instanceof AppError ? error.statusCode : 500;
   }
 }
