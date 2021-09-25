@@ -23,6 +23,10 @@
     {
       "key": "ErrorEnvPasswdHashSalt",
       "label": "Ocorreu um erro ao criptografar a senha."
+    },
+    {
+      "key": "ErrorEmailInvalid",
+      "label": "O E-mail informado não é válido."
     }
   ]
 }

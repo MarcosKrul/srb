@@ -1,3 +1,4 @@
+import { validate } from "email-validator";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@error/AppError";
@@ -15,7 +16,16 @@ class CreateMailService {
     if (!email)
       throw new AppError(400, AppError.getErrorMessage("ErrorEmailRequired"));
 
-    // to-do: validar se email ja existe e se e valido
+    if (!validate(email))
+      throw new AppError(400, AppError.getErrorMessage("ErrorEmailInvalid"));
+
+    const hasEmail = await this.mailRepository.findOne(email);
+    if (hasEmail)
+      throw new AppError(
+        400,
+        AppError.getErrorMessage("ErrorEmailAlreadyExits")
+      );
+
     const response = this.mailRepository.save(email);
     return response;
   }
