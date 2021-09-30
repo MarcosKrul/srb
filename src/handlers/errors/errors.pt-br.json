@@ -27,6 +27,18 @@
     {
       "key": "ErrorEmailInvalid",
       "label": "O E-mail informado não é válido."
+    },
+    {
+      "key": "ErrorCpfInvalid",
+      "label": "O CPF informado não é válido."
+    },
+    {
+      "key": "ErrorUserGroupNotFound",
+      "label": "Ocorreu um erro ao definir o grupo do usuário. Por favor, entre em contato com um administrador."
+    },
+    {
+      "key": "ErrorGeneratePassword",
+      "label": "Ocorreu um erro ao gerar a senha do usuário. Por favor, entre em contato com um administrador."
     }
   ]
 }

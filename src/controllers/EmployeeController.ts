@@ -51,12 +51,8 @@ class EmployeeController {
 
       const employee = await createEmployeeService.execute({
         cpf,
-        createdAt: new Date(),
         name,
-        password: "",
         emailId: mail.id,
-        id: "5816536f-e39b-4812-9830-1e25c19cd88f",
-        groupId: 1,
       });
 
       return res.status(200).json({
