@@ -11,35 +11,43 @@ datasource db {
 model Profile {
   bio            String
   avatar         String      @db.VarChar(255)
-  entityId       String      @id @db.Uuid @map("entity_id")
+
+  userId         String      @id                  @db.Uuid @map("user_id")
+  user           User        @relation(fields: [userId], references: [id])
 
   @@map(name: "profile")
 }
 
 
-model Access {
+model Session {
   attempts       Int         
   blocked        Boolean
-  entityId       String      @id @db.Uuid @map("entity_id")
+  password       String      @db.VarChar(255)
 
-  @@map(name: "access")
+
+  primary        String      @db.VarChar(100)      @unique()
+  email          Email       @relation(fields: [primary], references: [primary])
+
+  userId         String      @id @db.Uuid @map("user_id")
+  user           User        @relation(fields: [userId], references: [id])
+
+  @@map(name: "session")
 }
 
 
 model UserGroup {
-  id             Int         @id() @default(autoincrement())
+  id             Int         @id()                 @default(autoincrement())
   group          String      @db.VarChar(32)
 
-  student        Student?
-  roles          Roles?
-  employee       Employee?
+  user           User[]
+  roles          Roles[]
 
   @@map(name: "user_group")
 }
 
 
 model Roles {
-  id             Int         @id() @default(autoincrement())
+  id             Int         @id()                 @default(autoincrement())
   role           String      @db.VarChar(32)
 
   groupId        Int         @map("group_id")
@@ -50,47 +58,51 @@ model Roles {
 
 
 model Email {
-  id             Int         @id() @default(autoincrement())
+  id             Int         @id()                 @default(autoincrement())
   advertising    Boolean     @db.Boolean()
   notifications  Boolean     @db.Boolean()
-  primary        String      @db.VarChar(100)
+  primary        String      @db.VarChar(100)      @unique()
   secondary      String      @db.VarChar(100)
 
-  student        Student?
-  employee       Employee?
+  session        Session?
 
   @@map(name: "email")
 }
 
 
-model Employee {
-  id             String      @id @db.Uuid
-  cpf            String      @db.VarChar(16)
+model User {
+  id             String      @id                   @db.Uuid
   name           String      @db.VarChar(255)
-  password       String      @db.VarChar(255)
   createdAt      DateTime    @map("created_at")
 
   groupId        Int         @map("group_id")
   group          UserGroup   @relation(fields: [groupId], references: [id])
-  emailId        Int         @map("email_id")
-  email          Email       @relation(fields: [emailId], references: [id])
 
-  @@map(name: "employee")
+  student        Student?
+  employee       Employee?
+  profile        Profile?
+  session        Session?
+
+  @@map(name: "user")
+}
+
+
+model Employee {
+  id             String      @id                   @db.Uuid()
+  cpf            String      @db.VarChar(16)
+
+  user           User        @relation(fields: [id], references: [id])
+
+  @@map("employee")
 }
 
 
 model Student {
-  id             String      @id @db.Uuid
+  id             String      @id                   @db.Uuid
   registration   String      @db.VarChar(32)
   grade          String      @db.VarChar(32)
-  password       String      @db.VarChar(255)
-  name           String      @db.VarChar(255)
-  createdAt      DateTime    @map("created_at")
 
-  groupId        Int         @map("group_id")
-  group          UserGroup   @relation(fields: [groupId], references: [id])
-  emailId        Int         @map("email_id")
-  email          Email       @relation(fields: [emailId], references: [id])
+  user           User        @relation(fields: [id], references: [id])
 
   @@map(name: "student")
 }
