@@ -1,5 +1,5 @@
 import { clientConnection } from "@infra/database";
-import { Employee } from "@prisma/client";
+import { Employee, PrismaPromise } from "@prisma/client";
 import { IEmployeeRepository } from "@repositories/employee/models/IEmployeeRepository";
 
 class EmployeeRepository implements IEmployeeRepository {
@@ -10,19 +10,13 @@ class EmployeeRepository implements IEmployeeRepository {
     return response;
   }
 
-  public async save(employee: Employee): Promise<Employee> {
-    const response = await this.prisma.employee.create({
+  public save(employee: Employee): PrismaPromise<Employee> {
+    return this.prisma.employee.create({
       data: {
         cpf: employee.cpf,
-        name: employee.name,
         id: employee.id,
-        createdAt: new Date(),
-        emailId: employee.emailId,
-        groupId: employee.groupId,
-        password: employee.password,
       },
     });
-    return response;
   }
 }
 

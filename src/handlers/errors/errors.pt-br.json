@@ -39,6 +39,10 @@
     {
       "key": "ErrorGeneratePassword",
       "label": "Ocorreu um erro ao gerar a senha do usuário. Por favor, entre em contato com um administrador."
+    },
+    {
+      "key": "ErrorEnvNameGroup",
+      "label": "Ocorreu um erro ao recuperar o grupo do usuário. Por favor, entre em contato com um administrador."
     }
   ]
 }

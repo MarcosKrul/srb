@@ -8,7 +8,6 @@ import {
   CreateEmployeeService,
   ListEmployeesService,
 } from "@services/employee";
-import { CreateMailService } from "@services/mail";
 import { AppSuccess } from "@success/AppSuccess";
 
 class EmployeeController {
@@ -42,9 +41,6 @@ class EmployeeController {
     try {
       const { email, name, cpf } = req.body;
 
-      const createMailService = await container.resolve(CreateMailService);
-      const mail = await createMailService.execute(email);
-
       const createEmployeeService = await container.resolve(
         CreateEmployeeService
       );
@@ -52,7 +48,7 @@ class EmployeeController {
       const employee = await createEmployeeService.execute({
         cpf,
         name,
-        emailId: mail.id,
+        email,
       });
 
       return res.status(200).json({
