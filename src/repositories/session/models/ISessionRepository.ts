@@ -1,10 +1,9 @@
+import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { Email, Session, PrismaPromise } from "@prisma/client";
-
-import { CreateSessionModel } from "./CreateSessionModel";
 
 interface ISessionRepository {
   findOne(email: string): Promise<Email | null>;
-  save(data: CreateSessionModel): PrismaPromise<Session | Email>[];
+  save(data: CreateSessionRequestModel): PrismaPromise<Session | Email>[];
 }
 
 export { ISessionRepository };

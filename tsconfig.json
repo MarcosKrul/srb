@@ -36,7 +36,8 @@
       "@repositories/*": ["./src/repositories/*"],
       "@containers/*": ["./src/containers/*"],
       "@services/*": ["./src/services/*"],
-      "@providers/*": ["./src/providers/*"]
+      "@providers/*": ["./src/providers/*"],
+      "@models/*": ["./src/models/*"]
     }
   }
 }

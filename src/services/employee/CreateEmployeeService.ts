@@ -4,6 +4,7 @@ import { container, inject, injectable } from "tsyringe";
 import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
 import { clientConnection } from "@infra/database";
+import { CreateEmployeeRequestModel } from "@models/CreateEmployeeRequestModel";
 import { Employee, PrismaPromise, Email, Session } from "@prisma/client";
 import { IHashProvider } from "@providers/hash";
 import { IPasswordProvider } from "@providers/password";
@@ -12,8 +13,6 @@ import { IEmployeeRepository } from "@repositories/employee";
 import { IUserRepository } from "@repositories/user";
 import { IUserGroupRepository } from "@repositories/userGroup";
 import { CreateSessionService } from "@services/session";
-
-import { CreateEmployeeModel } from "./models/CreateEmployeeModel";
 
 @injectable()
 class CreateEmployeeService {
@@ -36,7 +35,7 @@ class CreateEmployeeService {
     cpf,
     email,
     name,
-  }: CreateEmployeeModel): Promise<Employee> {
+  }: CreateEmployeeRequestModel): Promise<Employee> {
     if (CpfValidator.isValid(cpf))
       throw new AppError(400, AppError.getErrorMessage("ErrorCpfInvalid"));
 

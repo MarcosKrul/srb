@@ -2,8 +2,9 @@ import { validate } from "email-validator";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@error/AppError";
+import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { Email, Session, PrismaPromise } from "@prisma/client";
-import { CreateSessionModel, ISessionRepository } from "@repositories/session";
+import { ISessionRepository } from "@repositories/session";
 
 @injectable()
 class CreateSessionService {
@@ -16,7 +17,7 @@ class CreateSessionService {
     email,
     password,
     userId,
-  }: CreateSessionModel): Promise<PrismaPromise<Session | Email>[]> {
+  }: CreateSessionRequestModel): Promise<PrismaPromise<Session | Email>[]> {
     if (!email)
       throw new AppError(400, AppError.getErrorMessage("ErrorEmailRequired"));
 

@@ -1,6 +1,7 @@
 import { clientConnection } from "@infra/database";
+import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { Email, Session, PrismaPromise } from "@prisma/client";
-import { ISessionRepository, CreateSessionModel } from "@repositories/session";
+import { ISessionRepository } from "@repositories/session";
 
 class SessionRepository implements ISessionRepository {
   constructor(private prisma = clientConnection) {}
@@ -17,7 +18,7 @@ class SessionRepository implements ISessionRepository {
     email,
     password,
     userId,
-  }: CreateSessionModel): PrismaPromise<Session | Email>[] {
+  }: CreateSessionRequestModel): PrismaPromise<Session | Email>[] {
     const mailOperation = this.prisma.email.create({
       data: {
         primary: email,
