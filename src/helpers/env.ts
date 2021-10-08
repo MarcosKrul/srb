@@ -3,6 +3,7 @@ type keys =
   | "PASSWD_HASH_SALT"
   | "PASSWD_LENGTH"
   | "GROUP_NAME_EMPLOYEE"
+  | "JWT_SECRET_KEY"
   | "MAX_LOGIN_ATTEMPTS";
 
 const env = (key: keys): string | undefined => {
