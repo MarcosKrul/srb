@@ -76,7 +76,7 @@ model User {
   createdAt      DateTime    @map("created_at")
 
   groupId        Int         @map("group_id")
-  group          UserGroup   @relation(fields: [groupId], references: [id])
+  userGroup      UserGroup   @relation(fields: [groupId], references: [id])
 
   student        Student?
   employee       Employee?

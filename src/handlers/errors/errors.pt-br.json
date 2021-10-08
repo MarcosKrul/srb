@@ -43,6 +43,26 @@
     {
       "key": "ErrorEnvNameGroup",
       "label": "Ocorreu um erro ao recuperar o grupo do usuário. Por favor, entre em contato com um administrador."
+    },
+    {
+      "key": "ErrorLogin",
+      "label": "Ocorreu um erro ao realizar o login."
+    },
+    {
+      "key": "ErrorLoginCredentials",
+      "label": "E-mail e/ou senha incorretos."
+    },
+    {
+      "key": "ErrorBlockedAccount",
+      "label": "Não foi possível realizar o login. Sua conta será temporariamente bloqueada devido à excessivas tentativas."
+    },
+    {
+      "key": "ErrorLoginBlockedAccount",
+      "label": "Sua conta foi temporariamente bloqueada devido à excessivas tentativas de login."
+    },
+    {
+      "key": "ErrorEnvMaxLoginAttempts",
+      "label": "Ocorreu um erro ao recuperar informações para realizar o login. Por favor, entre em contato com um administrador."
     }
   ]
 }
