@@ -1,4 +1,4 @@
-import { hash as bHash, compare as bCompare } from "bcrypt";
+import { hash as bHash, compare as bCompare } from "bcryptjs";
 
 import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
