@@ -4,6 +4,7 @@ import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
 import { LoginRequestModel } from "@models/LoginRequestModel";
 import { LoginResponseModel } from "@models/LoginResponseModel";
+import { IAuthenticationProvider } from "@providers/authentication";
 import { IHashProvider } from "@providers/hash";
 import { ISessionRepository } from "@repositories/session";
 
@@ -15,7 +16,9 @@ class LoginService {
     @inject("SessionRepository")
     private sessionRepository: ISessionRepository,
     @inject("HashProvider")
-    private hashProvider: IHashProvider
+    private hashProvider: IHashProvider,
+    @inject("AuthenticationProvider")
+    private authenticationProvider: IAuthenticationProvider
   ) {}
 
   public async execute({
@@ -67,13 +70,32 @@ class LoginService {
       );
     }
 
+    const tokenPayload = {
+      id: hasUser.userId,
+      avatar: hasUser.user.profile?.avatar,
+      name: hasUser.user.name,
+      roles: hasUser.user.userGroup.roles.map(
+        (item: { role: string }) => item.role
+      ),
+    };
+
+    const accessToken = this.authenticationProvider.generateToken({
+      ...tokenPayload,
+      type: "access_token",
+    });
+
+    const refreshToken = this.authenticationProvider.generateToken({
+      ...tokenPayload,
+      type: "refresh_token",
+    });
+
     return {
       email: hasUser.primary,
       name: hasUser.user.name,
       avatar: hasUser.user.profile?.avatar,
       bio: hasUser.user.profile?.bio,
-      token: "",
-      refreshToken: "",
+      token: accessToken,
+      refreshToken,
       entity: {
         type: hasUser.user.userGroup.group,
         data:
