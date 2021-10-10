@@ -67,6 +67,14 @@
     {
       "key": "ErrorEnvJwtSecretKey",
       "label": "Ocorreu um erro ao recuperar informações para realizar o login. Por favor, entre em contato com um administrador."
+    },
+    {
+      "key": "ErrorEnvPageSizeDefault",
+      "label": "Ocorreu um erro ao recuperar as informações para realizar a busca paginada. Por favor, entre em contato com um administrador."
+    },
+    {
+      "key": "ErrorQueryTypecasting",
+      "label": "Não foi possível realizar a operação com as informações opcionais informadas."
     }
   ]
 }

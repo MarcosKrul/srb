@@ -1,5 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
+import { pagination } from "@helpers/pagination";
+import { IPaginationOptions, IPaginationResponse } from "@infra/http";
 import { Employee } from "@prisma/client";
 import { IEmployeeRepository } from "@repositories/employee";
 
@@ -10,9 +12,14 @@ class ListEmployeesService {
     private employeeRepository: IEmployeeRepository
   ) {}
 
-  public async execute(): Promise<Employee[]> {
-    const employees = await this.employeeRepository.getAll();
-    return employees;
+  public async execute(
+    options: IPaginationOptions
+  ): Promise<IPaginationResponse<Employee>> {
+    const response = await this.employeeRepository.getAll(
+      pagination(options || ({} as IPaginationOptions))
+    );
+
+    return response;
   }
 }
 

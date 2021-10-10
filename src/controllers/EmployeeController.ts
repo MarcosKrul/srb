@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 
 import { AppError } from "@error/AppError";
-import { IResponseMessage } from "@infra/http";
+import { IPaginationResponse, IResponseMessage } from "@infra/http";
 import { Employee } from "@prisma/client";
 import {
   CreateEmployeeService,
@@ -12,14 +12,19 @@ import { AppSuccess } from "@success/AppSuccess";
 
 class EmployeeController {
   public async read(
-    _: Request,
-    res: Response<IResponseMessage<Employee[]>>
+    req: Request,
+    res: Response<IResponseMessage<IPaginationResponse<Employee>>>
   ): Promise<Response> {
     try {
+      const { page, size } = req.query;
+
       const listEmployeesService = await container.resolve(
         ListEmployeesService
       );
-      const response = await listEmployeesService.execute();
+      const response = await listEmployeesService.execute({
+        page,
+        size,
+      });
 
       return res.status(200).json({
         success: true,

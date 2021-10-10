@@ -1,7 +1,10 @@
+import { IPaginationResponse } from "@infra/http";
 import { Employee, PrismaPromise } from "@prisma/client";
 
 interface IEmployeeRepository {
-  getAll(): Promise<Employee[]>;
+  getAll([take, skip]: [number, number]): Promise<
+    IPaginationResponse<Employee>
+  >;
 
   save(employee: Employee): PrismaPromise<Employee>;
 }
