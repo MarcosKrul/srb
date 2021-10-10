@@ -1,6 +1,5 @@
 import { container } from "tsyringe";
 
-import { HashProvider, IHashProvider } from "@providers/hash";
 import { IPasswordProvider, PasswordProvider } from "@providers/password";
 import {
   IUniqueIdentifierProvider,
@@ -27,8 +26,6 @@ container.registerSingleton<IUserGroupRepository>(
   "UserGroupRepository",
   UserGroupRepository
 );
-
-container.registerSingleton<IHashProvider>("HashProvider", HashProvider);
 
 container.registerSingleton<IUniqueIdentifierProvider>(
   "UniqueIdentifierProvider",
