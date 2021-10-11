@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "@error/AppError";
 import { IResponseMessage } from "@infra/http";
 
-const errorHandler = (
+const errorHandlerMiddleware = (
   err: Error,
   _: Request,
   res: Response<IResponseMessage>,
@@ -22,4 +22,4 @@ const errorHandler = (
   });
 };
 
-export { errorHandler };
+export { errorHandlerMiddleware };
