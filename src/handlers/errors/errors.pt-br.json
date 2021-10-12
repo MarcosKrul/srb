@@ -75,6 +75,10 @@
     {
       "key": "ErrorQueryTypecasting",
       "label": "Não foi possível realizar a operação com as informações opcionais informadas."
+    },
+    {
+      "key": "ErrorGenericToken",
+      "label": "Não foi possível validar a autenticidade do usuário."
     }
   ]
 }
