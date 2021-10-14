@@ -1,6 +1,9 @@
 import { container } from "tsyringe";
 
-import { IPasswordProvider, PasswordProvider } from "@providers/password";
+import {
+  IRandomTokenProvider,
+  RandomTokenProvider,
+} from "@providers/randomToken";
 import {
   IUniqueIdentifierProvider,
   UniqueIdentifierProvider,
@@ -32,7 +35,7 @@ container.registerSingleton<IUniqueIdentifierProvider>(
   UniqueIdentifierProvider
 );
 
-container.registerSingleton<IPasswordProvider>(
-  "PasswordProvider",
-  PasswordProvider
+container.registerSingleton<IRandomTokenProvider>(
+  "RandomTokenProvider",
+  RandomTokenProvider
 );

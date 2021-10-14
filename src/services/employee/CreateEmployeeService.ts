@@ -7,7 +7,7 @@ import { clientConnection } from "@infra/database";
 import { CreateEmployeeRequestModel } from "@models/CreateEmployeeRequestModel";
 import { Employee, PrismaPromise, Email, Session } from "@prisma/client";
 import { IHashProvider } from "@providers/hash";
-import { IPasswordProvider } from "@providers/password";
+import { IRandomTokenProvider } from "@providers/randomToken";
 import { IUniqueIdentifierProvider } from "@providers/uniqueIdentifier";
 import { IEmployeeRepository } from "@repositories/employee";
 import { IUserRepository } from "@repositories/user";
@@ -27,8 +27,8 @@ class CreateEmployeeService {
     private uniqueIdentifierProvider: IUniqueIdentifierProvider,
     @inject("HashProvider")
     private hashProvider: IHashProvider,
-    @inject("PasswordProvider")
-    private passwordProvider: IPasswordProvider
+    @inject("RandomTokenProvider")
+    private randomTokenProvider: IRandomTokenProvider
   ) {}
 
   public async execute({
@@ -41,7 +41,7 @@ class CreateEmployeeService {
 
     const userId = this.uniqueIdentifierProvider.generate();
 
-    const generatedPassword = this.passwordProvider.generate();
+    const generatedPassword = this.randomTokenProvider.generatePassword();
     const hashedPassword = await this.hashProvider.hash(generatedPassword);
 
     const createSessionService = await container.resolve(CreateSessionService);

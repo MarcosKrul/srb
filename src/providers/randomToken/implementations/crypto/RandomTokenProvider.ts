@@ -2,10 +2,10 @@ import { randomBytes } from "crypto";
 
 import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
-import { IPasswordProvider } from "@providers/password";
+import { IRandomTokenProvider } from "@providers/randomToken";
 
-class PasswordProvider implements IPasswordProvider {
-  generate(): string {
+class RandomTokenProvider implements IRandomTokenProvider {
+  generatePassword(): string {
     const length = Number(env("PASSWD_LENGTH"));
     if (!length || length < 0) throw new AppError(500, "ErrorGeneratePassword");
 
@@ -13,4 +13,4 @@ class PasswordProvider implements IPasswordProvider {
   }
 }
 
-export { PasswordProvider };
+export { RandomTokenProvider };
