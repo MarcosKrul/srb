@@ -62,11 +62,16 @@ class LoginService {
 
       if (sessionUpdated.blocked) {
         console.log("Mandar email - conta bloqueda");
+
+        throw new AppError(
+          400,
+          AppError.getErrorMessage("ErrorLoginBlockedAccount")
+        );
       }
 
       throw new AppError(
         400,
-        AppError.getErrorMessage("ErrorLoginBlockedAccount")
+        AppError.getErrorMessage("ErrorLoginCredentials")
       );
     }
 
