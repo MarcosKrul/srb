@@ -12,6 +12,17 @@ class EmployeeRepository implements IEmployeeRepository {
     const [totalItens, itens] = await this.prisma.$transaction([
       this.prisma.employee.count(),
       this.prisma.employee.findMany({
+        include: {
+          user: {
+            select: {
+              createdAt: true,
+              name: true,
+              employee: {
+                select: { cpf: true },
+              },
+            },
+          },
+        },
         orderBy: {
           user: { createdAt: "asc" },
         },

@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { AppError } from "@error/AppError";
 import { IPaginationResponse, IResponseMessage } from "@infra/http";
-import { Employee } from "@prisma/client";
+import { Employee, User } from "@prisma/client";
 import {
   CreateEmployeeService,
   ListEmployeesService,
@@ -41,7 +41,7 @@ class EmployeeController {
 
   public async create(
     req: Request,
-    res: Response<IResponseMessage<Employee>>
+    res: Response<IResponseMessage<Omit<Employee & User, "groupId">>>
   ): Promise<Response> {
     try {
       const { email, name, cpf } = req.body;

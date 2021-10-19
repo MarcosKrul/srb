@@ -5,7 +5,7 @@ import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
 import { clientConnection } from "@infra/database";
 import { CreateEmployeeRequestModel } from "@models/CreateEmployeeRequestModel";
-import { Employee, PrismaPromise, Email, Session } from "@prisma/client";
+import { Employee, User, PrismaPromise, Email, Session } from "@prisma/client";
 import { IHashProvider } from "@providers/hash";
 import { IRandomTokenProvider } from "@providers/randomToken";
 import { IUniqueIdentifierProvider } from "@providers/uniqueIdentifier";
@@ -35,7 +35,7 @@ class CreateEmployeeService {
     cpf,
     email,
     name,
-  }: CreateEmployeeRequestModel): Promise<Employee> {
+  }: CreateEmployeeRequestModel): Promise<Omit<Employee & User, "groupId">> {
     if (CpfValidator.isValid(cpf))
       throw new AppError(400, AppError.getErrorMessage("ErrorCpfInvalid"));
 
@@ -80,15 +80,20 @@ class CreateEmployeeService {
       id: userId,
     });
 
-    const [, employee] = await clientConnection.$transaction([
-      createUserOperation,
-      createEmployeeOperation,
-      ...(createSessionOperation as unknown as PrismaPromise<
-        Email | Session
-      >[]),
-    ]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [{ groupId: _, ...user }, employee] =
+      await clientConnection.$transaction([
+        createUserOperation,
+        createEmployeeOperation,
+        ...(createSessionOperation as unknown as PrismaPromise<
+          Email | Session
+        >[]),
+      ]);
 
-    return employee;
+    return {
+      ...employee,
+      ...user,
+    };
   }
 }
 
