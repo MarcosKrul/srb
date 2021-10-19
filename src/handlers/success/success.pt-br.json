@@ -3,6 +3,14 @@
     {
       "key": "GenericSuccess",
       "label": "A operação foi realizada com sucesso."
+    },
+    {
+      "key": "SuccessForgotPasswd",
+      "label": "Operação realizada com sucesso. Um e-mail foi enviado com as próximas instruções."
+    },
+    {
+      "key": "SuccessResetPasswd",
+      "label": "Senha recuperada com sucesso."
     }
   ]
 }

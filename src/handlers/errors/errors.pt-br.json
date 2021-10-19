@@ -79,6 +79,30 @@
     {
       "key": "ErrorGenericToken",
       "label": "Não foi possível validar a autenticidade do usuário."
+    },
+    {
+      "key": "ErrorEmailNotFound",
+      "label": "O e-mail informado não pertence a um usuário registrado."
+    },
+    {
+      "key": "ErrorForgotPasswd",
+      "label": "Não foi possível realizar a recuperação de senha."
+    },
+    {
+      "key": "ErrorDifferentPasswords",
+      "label": "As senhas informadas não são iguais."
+    },
+    {
+      "key": "ErrorNoRequestResetPasswd",
+      "label": "Não foi possível realizar a operação pois o usuário não possui uma requisição para recuperar a senha."
+    },
+    {
+      "key": "ErrorInvalidResetPasswdToken",
+      "label": "Não foi possível realizar a operação pois a credencial de acesso é inválida."
+    },
+    {
+      "key": "ErrorResetPasswdExpires",
+      "label": "Não foi possível realizar a operação pois excedeu o tempo limite. Por favor, realize um novo pedido de recuperação."
     }
   ]
 }

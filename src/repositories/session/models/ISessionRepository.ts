@@ -1,5 +1,6 @@
 import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
-import { Email, Session, PrismaPromise } from "@prisma/client";
+import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
+import { Email, Session, PrismaPromise, ForgotPasswd } from "@prisma/client";
 
 interface ISessionRepository {
   incrementAttempts(
@@ -18,6 +19,10 @@ interface ISessionRepository {
     | null
   >;
   save(data: CreateSessionRequestModel): PrismaPromise<Session | Email>[];
+  forgotPasswd(data: ForgotPasswdRequestModel): Promise<void>;
+  resetPasswd(userId: string): Promise<ForgotPasswd | null>;
+  alterPasswd(userId: string, password: string): PrismaPromise<Session>;
+  deleteResetPasswd(userId: string): PrismaPromise<ForgotPasswd>;
 }
 
 export { ISessionRepository };

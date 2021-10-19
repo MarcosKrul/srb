@@ -8,4 +8,8 @@ const sessionController = new SessionController();
 
 routes.post(RoutesPath.LOGIN_ROUTE, sessionController.login);
 
+routes.post(RoutesPath.FORGOT_PASSWD, sessionController.forgotPasswd);
+
+routes.post(RoutesPath.RESET_PASSWD, sessionController.resetPasswd);
+
 export { routes };

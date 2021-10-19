@@ -5,6 +5,10 @@ import { env } from "@helpers/env";
 import { IRandomTokenProvider } from "@providers/randomToken";
 
 class RandomTokenProvider implements IRandomTokenProvider {
+  generateForgotPasswd(): string {
+    return randomBytes(25).toString("hex");
+  }
+
   generatePassword(): string {
     const length = Number(env("PASSWD_LENGTH"));
     if (!length || length < 0) throw new AppError(500, "ErrorGeneratePassword");

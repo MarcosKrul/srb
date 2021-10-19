@@ -31,7 +31,20 @@ model Session {
   userId         String      @id @db.Uuid @map("user_id")
   user           User        @relation(fields: [userId], references: [id])
 
+  forgotPasswd   ForgotPasswd?
+
   @@map(name: "session")
+}
+
+
+model ForgotPasswd {
+  userId         String      @id() @db.Uuid() @map("user_id")
+  session        Session     @relation(fields: [userId], references: [userId])
+
+  token          String      @db.VarChar(50)
+  expiresIn      DateTime    @db.Timestamp()  @map("expires_in")
+
+  @@map("forgot_passwd")
 }
 
 

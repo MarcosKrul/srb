@@ -1,6 +1,7 @@
 import { clientConnection } from "@infra/database";
 import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
-import { Email, Session, PrismaPromise } from "@prisma/client";
+import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
+import { Email, Session, PrismaPromise, ForgotPasswd } from "@prisma/client";
 import { ISessionRepository } from "@repositories/session";
 
 class SessionRepository implements ISessionRepository {
@@ -52,7 +53,7 @@ class SessionRepository implements ISessionRepository {
     attempts,
     blocked,
   }: Omit<Session, "password" | "primary">): Promise<Session> {
-    const incrementOperation = await this.prisma.session.update({
+    const incrementOperation = this.prisma.session.update({
       where: { userId },
       data: { attempts, blocked },
     });
@@ -85,6 +86,50 @@ class SessionRepository implements ISessionRepository {
     });
 
     return [mailOperation, sessionOperation];
+  }
+
+  async forgotPasswd({
+    expiresIn,
+    token,
+    userId,
+  }: ForgotPasswdRequestModel): Promise<void> {
+    await this.prisma.forgotPasswd.upsert({
+      where: { userId },
+      update: {
+        token,
+        expiresIn,
+      },
+      create: {
+        userId,
+        token,
+        expiresIn,
+      },
+    });
+  }
+
+  async resetPasswd(userId: string): Promise<ForgotPasswd | null> {
+    const response = await this.prisma.forgotPasswd.findFirst({
+      where: { userId },
+    });
+
+    return response;
+  }
+
+  deleteResetPasswd(userId: string): PrismaPromise<ForgotPasswd> {
+    const operation = this.prisma.forgotPasswd.delete({
+      where: { userId },
+    });
+
+    return operation;
+  }
+
+  alterPasswd(userId: string, password: string): PrismaPromise<Session> {
+    const operation = this.prisma.session.update({
+      where: { userId },
+      data: { password },
+    });
+
+    return operation;
   }
 }
 
