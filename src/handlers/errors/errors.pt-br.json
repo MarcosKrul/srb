@@ -103,6 +103,10 @@
     {
       "key": "ErrorResetPasswdExpires",
       "label": "Não foi possível realizar a operação pois excedeu o tempo limite. Por favor, realize um novo pedido de recuperação."
+    },
+    {
+      "key": "ErrorGenerateForgottenPasswdToken",
+      "label": "Ocorreu um erro ao gerar a autenticação da recuperação de senha. Por favor, entre em contato com um administrador."
     }
   ]
 }
