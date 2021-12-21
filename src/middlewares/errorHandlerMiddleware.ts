@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
+import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IResponseMessage } from "@infra/http";
 
@@ -18,7 +19,7 @@ const errorHandlerMiddleware = (
 
   return res.status(500).json({
     success: false,
-    message: AppError.getErrorMessage("ErrorInternal"),
+    message: i18n.__("ErrorInternal"),
   });
 };
 

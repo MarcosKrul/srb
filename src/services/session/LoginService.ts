@@ -6,6 +6,7 @@ import { LoginRequestModel } from "@models/LoginRequestModel";
 import { LoginResponseModel } from "@models/LoginResponseModel";
 import { IAuthenticationProvider } from "@providers/authentication";
 import { IHashProvider } from "@providers/hash";
+import { i18n } from "@config/i18n";
 import { ISessionRepository } from "@repositories/session";
 
 import { Employee, Student } from ".prisma/client";
@@ -26,27 +27,17 @@ class LoginService {
     password,
   }: LoginRequestModel): Promise<LoginResponseModel> {
     if (!email || !password)
-      throw new AppError(
-        400,
-        AppError.getErrorMessage("ErrorLoginCredentials")
-      );
+      throw new AppError(400, i18n.__("ErrorLoginCredentials"));
 
     const hasUser = await this.sessionRepository.findOne(email);
-    if (!hasUser)
-      throw new AppError(
-        400,
-        AppError.getErrorMessage("ErrorLoginCredentials")
-      );
+    if (!hasUser) throw new AppError(400, i18n.__("ErrorLoginCredentials"));
 
     const maxAttempts = Number(env("MAX_LOGIN_ATTEMPTS"));
     if (!maxAttempts)
-      throw new AppError(
-        500,
-        AppError.getErrorMessage("ErrorEnvMaxLoginAttempts")
-      );
+      throw new AppError(500, i18n.__("ErrorEnvMaxLoginAttempts"));
 
     if (hasUser.blocked || hasUser.attempts >= maxAttempts)
-      throw new AppError(400, AppError.getErrorMessage("ErrorBlockedAccount"));
+      throw new AppError(400, i18n.__("ErrorBlockedAccount"));
 
     const matchPassword = await this.hashProvider.compare(
       password,
@@ -63,16 +54,10 @@ class LoginService {
       if (sessionUpdated.blocked) {
         console.log("Mandar email - conta bloqueda");
 
-        throw new AppError(
-          400,
-          AppError.getErrorMessage("ErrorLoginBlockedAccount")
-        );
+        throw new AppError(400, i18n.__("ErrorLoginBlockedAccount"));
       }
 
-      throw new AppError(
-        400,
-        AppError.getErrorMessage("ErrorLoginCredentials")
-      );
+      throw new AppError(400, i18n.__("ErrorLoginCredentials"));
     }
 
     const tokenPayload = {

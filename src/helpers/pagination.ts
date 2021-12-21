@@ -1,4 +1,5 @@
 /* eslint-disable func-names */
+import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IPaginationOptions } from "@infra/http";
 
@@ -9,20 +10,14 @@ const pagination = ({ size, page }: IPaginationOptions): [number, number] => {
     if (size) {
       const converted = Number(size);
       if (Number.isNaN(converted))
-        throw new AppError(
-          400,
-          AppError.getErrorMessage("ErrorQueryTypecasting")
-        );
+        throw new AppError(400, i18n.__("ErrorQueryTypecasting"));
 
       return converted;
     }
 
     const sizeDefault = Number(env("PAGE_SIZE_DEFAULT"));
     if (!sizeDefault || Number.isNaN(sizeDefault))
-      throw new AppError(
-        500,
-        AppError.getErrorMessage("ErrorEnvPageSizeDefault")
-      );
+      throw new AppError(500, i18n.__("ErrorEnvPageSizeDefault"));
 
     return sizeDefault;
   })();
@@ -31,10 +26,7 @@ const pagination = ({ size, page }: IPaginationOptions): [number, number] => {
     if (page) {
       const converted = Number(page);
       if (Number.isNaN(converted))
-        throw new AppError(
-          400,
-          AppError.getErrorMessage("ErrorQueryTypecasting")
-        );
+        throw new AppError(400, i18n.__("ErrorQueryTypecasting"));
       return converted * take;
     }
 

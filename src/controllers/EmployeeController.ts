@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
+import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IPaginationResponse, IResponseMessage } from "@infra/http";
 import { Employee, User } from "@prisma/client";
@@ -8,7 +9,6 @@ import {
   CreateEmployeeService,
   ListEmployeesService,
 } from "@services/employee";
-import { AppSuccess } from "@success/AppSuccess";
 
 class EmployeeController {
   public async read(
@@ -29,12 +29,12 @@ class EmployeeController {
       return res.status(200).json({
         success: true,
         data: response,
-        message: AppSuccess.getSuccessMessage("GenericSuccess"),
+        message: i18n.__("SuccessGeneric"),
       });
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: AppError.getErrorMessage("ErrorReadEmployees", error),
+        message: i18n.__("ErrorReadEmployees"),
       });
     }
   }
@@ -59,12 +59,12 @@ class EmployeeController {
       return res.status(200).json({
         success: true,
         data: employee,
-        message: AppSuccess.getSuccessMessage("GenericSuccess"),
+        message: i18n.__("SuccessGeneric"),
       });
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: AppError.getErrorMessage("ErrorCreateEmployee", error),
+        message: i18n.__("ErrorCreateEmployee"),
       });
     }
   }

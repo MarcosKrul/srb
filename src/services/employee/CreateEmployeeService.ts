@@ -1,6 +1,7 @@
 import { cpf as CpfValidator } from "cpf-cnpj-validator";
 import { container, inject, injectable } from "tsyringe";
 
+import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
 import { clientConnection } from "@infra/database";
@@ -37,7 +38,7 @@ class CreateEmployeeService {
     name,
   }: CreateEmployeeRequestModel): Promise<Omit<Employee & User, "groupId">> {
     if (CpfValidator.isValid(cpf))
-      throw new AppError(400, AppError.getErrorMessage("ErrorCpfInvalid"));
+      throw new AppError(400, i18n.__("ErrorCpfInvalid"));
 
     const userId = this.uniqueIdentifierProvider.generate();
 
@@ -56,15 +57,10 @@ class CreateEmployeeService {
       });
 
     const nameGroup = env("GROUP_NAME_EMPLOYEE");
-    if (!nameGroup)
-      throw new AppError(500, AppError.getErrorMessage("ErrorEnvNameGroup"));
+    if (!nameGroup) throw new AppError(500, i18n.__("ErrorEnvNameGroup"));
 
     const userGroup = await this.userGroupRepository.getIdByGroup(nameGroup);
-    if (!userGroup)
-      throw new AppError(
-        500,
-        AppError.getErrorMessage("ErrorUserGroupNotFound")
-      );
+    if (!userGroup) throw new AppError(500, i18n.__("ErrorUserGroupNotFound"));
 
     const createUserOperation = this.userRepository.save({
       name,

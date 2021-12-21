@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
+import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IResponseMessage } from "@infra/http";
 import { LoginResponseModel } from "@models/LoginResponseModel";
@@ -9,7 +10,6 @@ import {
   LoginService,
   ResetPasswdService,
 } from "@services/session";
-import { AppSuccess } from "@success/AppSuccess";
 
 class SessionController {
   public async login(
@@ -29,12 +29,12 @@ class SessionController {
       return res.status(200).json({
         success: true,
         data: response,
-        message: AppSuccess.getSuccessMessage("GenericSuccess"),
+        message: i18n.__("SuccessGeneric"),
       });
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: AppError.getErrorMessage("ErrorLogin", error),
+        message: i18n.__("ErrorLogin"),
       });
     }
   }
@@ -49,12 +49,12 @@ class SessionController {
 
       return res.status(200).json({
         success: true,
-        message: AppSuccess.getSuccessMessage("SuccessForgotPasswd"),
+        message: i18n.__("SuccessForgotPasswd"),
       });
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: AppError.getErrorMessage("ErrorForgotPasswd", error),
+        message: i18n.__("ErrorForgotPasswd"),
       });
     }
   }
@@ -75,12 +75,12 @@ class SessionController {
 
       return res.status(200).json({
         success: true,
-        message: AppSuccess.getSuccessMessage("SuccessResetPasswd"),
+        message: i18n.__("SuccessResetPasswd"),
       });
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: AppError.getErrorMessage("ErrorForgotPasswd", error),
+        message: i18n.__("ErrorForgotPasswd"),
       });
     }
   }

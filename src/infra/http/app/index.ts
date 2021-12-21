@@ -6,13 +6,17 @@ import helmet from "helmet";
 import "@containers/index";
 import { routes } from "src/routes";
 
-import { errorHandlerMiddleware } from "@middlewares/errorHandlerMiddleware";
+import {
+  errorHandlerMiddleware,
+  internationalizationMiddleware,
+} from "@middlewares/index";
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(internationalizationMiddleware);
 app.use(routes);
 app.use(errorHandlerMiddleware);
 

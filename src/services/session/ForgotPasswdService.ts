@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IRandomTokenProvider } from "@providers/randomToken";
 import { ISessionRepository } from "@repositories/session";
@@ -14,12 +15,10 @@ class ForgotPasswdService {
   ) {}
 
   public async execute(email: string): Promise<void> {
-    if (!email)
-      throw new AppError(400, AppError.getErrorMessage("ErrorEmailRequired"));
+    if (!email) throw new AppError(400, i18n.__("ErrorEmailRequired"));
 
     const hasUser = await this.sessionRepository.findOne(email);
-    if (!hasUser)
-      throw new AppError(400, AppError.getErrorMessage("ErrorEmailNotFound"));
+    if (!hasUser) throw new AppError(400, i18n.__("ErrorEmailNotFound"));
 
     // eslint-disable-next-line func-names
     const expiresIn = (function (): Date {
