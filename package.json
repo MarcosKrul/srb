@@ -8,6 +8,8 @@
     "commit": "git-cz",
     "prepare": "husky install",
     "lint": "eslint . --ext js,ts",
+    "message:insert": "node scripts/messages/insert.js",
+    "message:order": "node scripts/messages/order.js",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "prisma:push": "dotenv-load yarn prisma db push",
     "prisma:studio": "dotenv-load yarn prisma studio --port 3000",
