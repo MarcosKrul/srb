@@ -37,7 +37,8 @@
       "@containers/*": ["./src/containers/*"],
       "@services/*": ["./src/services/*"],
       "@providers/*": ["./src/providers/*"],
-      "@models/*": ["./src/models/*"]
+      "@models/*": ["./src/models/*"],
+      "@routes/*": ["./src/routes/*"]
     }
   }
 }

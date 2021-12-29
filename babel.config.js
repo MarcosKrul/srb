@@ -20,8 +20,9 @@ module.exports = {
         "@repositories": "./src/repositories",
         "@containers": "./src/containers",
         "@services": "./src/services",
-        "@provider": "./src/provider",
+        "@providers": "./src/providers",
         "@models": "./src/models",
+        "@routes": "./src/routes",
       }}
     ],
   ],

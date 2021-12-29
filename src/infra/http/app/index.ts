@@ -3,13 +3,13 @@ import "express-async-errors";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
-import "@containers/index";
-import { routes } from "src/routes";
 
+import "@containers/index";
 import {
   errorHandlerMiddleware,
   internationalizationMiddleware,
 } from "@middlewares/index";
+import { routes } from "@routes/index";
 
 const app = express();
 
