@@ -2,7 +2,7 @@ import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
 import {
   Email,
-  Session,
+  LoginControl,
   PrismaPromise,
   ForgotPasswd,
   User,
@@ -10,11 +10,11 @@ import {
 
 interface ISessionRepository {
   incrementAttempts(
-    session: Omit<Session, "password" | "primary">
-  ): Promise<Session>;
+    session: Omit<LoginControl, "password" | "primary">
+  ): Promise<LoginControl>;
   findOne(email: string): Promise<any>;
   getIdByEmail(email: string): Promise<string | null>;
-  save(data: CreateSessionRequestModel): PrismaPromise<Session | Email>[];
+  save(data: CreateSessionRequestModel): PrismaPromise<LoginControl | Email>[];
   forgotPasswd(data: ForgotPasswdRequestModel): Promise<void>;
   resetPasswd(userId: string): Promise<ForgotPasswd | null>;
   alterPasswd(userId: string, password: string): PrismaPromise<User>;

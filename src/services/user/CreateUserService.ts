@@ -6,7 +6,7 @@ import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
 import { clientConnection } from "@infra/database";
 import { CreateUserRequestModel } from "@models/CreateUserRequestModel";
-import { User, PrismaPromise, Email, Session } from "@prisma/client";
+import { User, PrismaPromise, Email, LoginControl } from "@prisma/client";
 import { IHashProvider } from "@providers/hash";
 import { IRandomTokenProvider } from "@providers/randomToken";
 import { IUniqueIdentifierProvider } from "@providers/uniqueIdentifier";
@@ -42,7 +42,6 @@ class CreateUserService {
     const userId = this.uniqueIdentifierProvider.generate();
 
     const generatedPassword = this.randomTokenProvider.generatePassword();
-    console.log(generatedPassword);
     const hashedPassword = await this.hashProvider.hash(generatedPassword);
 
     const createSessionService = await container.resolve(CreateSessionService);
@@ -79,7 +78,7 @@ class CreateUserService {
       await clientConnection.$transaction([
         createUserOperation,
         ...(createSessionOperation as unknown as PrismaPromise<
-          Email | Session
+          Email | LoginControl
         >[]),
       ]);
 

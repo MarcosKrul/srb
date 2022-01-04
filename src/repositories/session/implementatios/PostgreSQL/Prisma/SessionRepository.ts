@@ -3,7 +3,7 @@ import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
 import {
   Email,
-  Session,
+  LoginControl,
   PrismaPromise,
   ForgotPasswd,
   User,
@@ -21,7 +21,7 @@ class SessionRepository implements ISessionRepository {
           select: {
             name: true,
             password: true,
-            session: {
+            loginControl: {
               select: {
                 attempts: true,
                 blocked: true,
@@ -50,8 +50,8 @@ class SessionRepository implements ISessionRepository {
     userId,
     attempts,
     blocked,
-  }: Omit<Session, "password" | "primary">): Promise<Session> {
-    const incrementOperation = this.prisma.session.update({
+  }: Omit<LoginControl, "password" | "primary">): Promise<LoginControl> {
+    const incrementOperation = this.prisma.loginControl.update({
       where: { userId },
       data: { attempts, blocked },
     });
@@ -62,7 +62,7 @@ class SessionRepository implements ISessionRepository {
   save({
     email,
     userId,
-  }: CreateSessionRequestModel): PrismaPromise<Session | Email>[] {
+  }: CreateSessionRequestModel): PrismaPromise<LoginControl | Email>[] {
     const mailOperation = this.prisma.email.create({
       data: {
         email,
@@ -73,7 +73,7 @@ class SessionRepository implements ISessionRepository {
       },
     });
 
-    const sessionOperation = this.prisma.session.create({
+    const sessionOperation = this.prisma.loginControl.create({
       data: {
         attempts: 0,
         blocked: false,

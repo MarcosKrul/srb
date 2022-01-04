@@ -4,7 +4,7 @@ import { inject, injectable } from "tsyringe";
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
-import { Email, Session, PrismaPromise } from "@prisma/client";
+import { Email, LoginControl, PrismaPromise } from "@prisma/client";
 import { ISessionRepository } from "@repositories/session";
 
 @injectable()
@@ -17,7 +17,9 @@ class CreateSessionService {
   public async execute({
     email,
     userId,
-  }: CreateSessionRequestModel): Promise<PrismaPromise<Session | Email>[]> {
+  }: CreateSessionRequestModel): Promise<
+    PrismaPromise<LoginControl | Email>[]
+  > {
     if (!email) throw new AppError(400, i18n.__("ErrorEmailRequired"));
 
     if (!validate(email)) throw new AppError(400, i18n.__("ErrorEmailInvalid"));

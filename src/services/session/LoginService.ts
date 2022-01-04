@@ -38,7 +38,10 @@ class LoginService {
     if (!maxAttempts)
       throw new AppError(500, i18n.__("ErrorEnvMaxLoginAttempts"));
 
-    if (hasUser.session.blocked || hasUser.session.attempts >= maxAttempts)
+    if (
+      hasUser.loginControl.blocked ||
+      hasUser.loginControl.attempts >= maxAttempts
+    )
       throw new AppError(400, i18n.__("ErrorBlockedAccount"));
 
     const matchPassword = await this.hashProvider.compare(
@@ -49,8 +52,8 @@ class LoginService {
     if (!matchPassword) {
       const sessionUpdated = await this.sessionRepository.incrementAttempts({
         userId,
-        attempts: hasUser.session.attempts + 1,
-        blocked: hasUser.session.attempts + 1 === maxAttempts,
+        attempts: hasUser.loginControl.attempts + 1,
+        blocked: hasUser.loginControl.attempts + 1 === maxAttempts,
       });
 
       if (sessionUpdated.blocked) {

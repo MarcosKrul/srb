@@ -33,14 +33,14 @@ model Profile {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   userId String @id @map("user_id") @db.Uuid
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map(name: "profile")
 }
 
 model ForgotPasswd {
   userId String @id @map("user_id") @db.Uuid
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   token     String   @db.VarChar(50)
   expiresIn DateTime @map("expires_in") @db.Timestamp
@@ -48,14 +48,14 @@ model ForgotPasswd {
   @@map("forgot_passwd")
 }
 
-model Session {
+model LoginControl {
   attempts Int
   blocked  Boolean
 
   userId String @id @map("user_id") @db.Uuid
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map(name: "session")
+  @@map(name: "login_control")
 }
 
 model Email {
@@ -77,7 +77,7 @@ model User {
   createdAt DateTime @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   cpf       String?  @db.VarChar(16)
-  password String?   @db.VarChar(255)
+  password  String   @db.VarChar(255)
 
   groupId   Int       @map("group_id")
   userGroup UserGroup @relation(fields: [groupId], references: [id])
@@ -86,7 +86,7 @@ model User {
 
   student      Student?
   profile      Profile?
-  session      Session?
+  loginControl LoginControl?
   forgotPasswd ForgotPasswd?
 
   @@map(name: "user")
