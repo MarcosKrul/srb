@@ -7,6 +7,7 @@
   "ErrorEmailInvalid": "O E-mail informado não é válido.",
   "ErrorEmailNotFound": "O e-mail informado não pertence a um usuário registrado.",
   "ErrorEmailRequired": "O E-mail é obrigatório.",
+  "ErrorEnvDefaultAvatarURL": "Ocorreu um erro ao recuperar a imagem de perfil do usuário. Por favor, entre em contato com um administrador.",
   "ErrorEnvJwtSecretKey": "Ocorreu um erro ao recuperar informações para realizar o login. Por favor, entre em contato com um administrador.",
   "ErrorEnvMaxLoginAttempts": "Ocorreu um erro ao recuperar informações para realizar o login. Por favor, entre em contato com um administrador.",
   "ErrorEnvNameGroup": "Ocorreu um erro ao recuperar o grupo do usuário. Por favor, entre em contato com um administrador.",

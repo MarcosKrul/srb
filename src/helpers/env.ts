@@ -5,7 +5,8 @@ type keys =
   | "GROUP_NAME_EMPLOYEE"
   | "JWT_SECRET_KEY"
   | "PAGE_SIZE_DEFAULT"
-  | "MAX_LOGIN_ATTEMPTS";
+  | "MAX_LOGIN_ATTEMPTS"
+  | "DEFAULT_AVATAR_URL";
 
 const env = (key: keys): string | undefined => {
   if (!key) return undefined;

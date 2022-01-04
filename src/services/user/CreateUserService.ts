@@ -10,6 +10,7 @@ import { User, PrismaPromise, Email, LoginControl } from "@prisma/client";
 import { IHashProvider } from "@providers/hash";
 import { IRandomTokenProvider } from "@providers/randomToken";
 import { IUniqueIdentifierProvider } from "@providers/uniqueIdentifier";
+import { IProfileRepository } from "@repositories/profile";
 import { IUserRepository } from "@repositories/user";
 import { IUserGroupRepository } from "@repositories/userGroup";
 import { CreateSessionService } from "@services/session";
@@ -26,7 +27,9 @@ class CreateUserService {
     @inject("HashProvider")
     private hashProvider: IHashProvider,
     @inject("RandomTokenProvider")
-    private randomTokenProvider: IRandomTokenProvider
+    private randomTokenProvider: IRandomTokenProvider,
+    @inject("ProfileRepository")
+    private profileRepository: IProfileRepository
   ) {}
 
   public async execute({
@@ -58,10 +61,18 @@ class CreateUserService {
     const nameGroup = env("GROUP_NAME_EMPLOYEE");
     if (!nameGroup) throw new AppError(500, i18n.__("ErrorEnvNameGroup"));
 
-    // to-do: profile
-
     const userGroup = await this.userGroupRepository.getIdByGroup(nameGroup);
     if (!userGroup) throw new AppError(500, i18n.__("ErrorUserGroupNotFound"));
+
+    const defaultAvatarURL = env("DEFAULT_AVATAR_URL");
+    if (!defaultAvatarURL)
+      throw new AppError(500, i18n.__("ErrorEnvDefaultAvatarURL"));
+
+    const createProfileOperation = this.profileRepository.save({
+      bio: "",
+      avatar: defaultAvatarURL,
+      userId,
+    });
 
     const createUserOperation = this.userRepository.save({
       name,
@@ -74,9 +85,10 @@ class CreateUserService {
     });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [{ groupId: _, password: __, ...user }, ___] =
+    const [{ groupId: _, password: __, ...user }, _profile, _session] =
       await clientConnection.$transaction([
         createUserOperation,
+        createProfileOperation,
         ...(createSessionOperation as unknown as PrismaPromise<
           Email | LoginControl
         >[]),

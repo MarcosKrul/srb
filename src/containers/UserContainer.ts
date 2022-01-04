@@ -8,6 +8,7 @@ import {
   IUniqueIdentifierProvider,
   UniqueIdentifierProvider,
 } from "@providers/uniqueIdentifier";
+import { IProfileRepository, ProfileRepository } from "@repositories/profile";
 import { IUserRepository, UserRepository } from "@repositories/user";
 import {
   IUserGroupRepository,
@@ -29,4 +30,9 @@ container.registerSingleton<IUniqueIdentifierProvider>(
 container.registerSingleton<IRandomTokenProvider>(
   "RandomTokenProvider",
   RandomTokenProvider
+);
+
+container.registerSingleton<IProfileRepository>(
+  "ProfileRepository",
+  ProfileRepository
 );

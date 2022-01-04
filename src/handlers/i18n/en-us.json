@@ -7,6 +7,7 @@
   "ErrorEmailInvalid": "not implemented",
   "ErrorEmailNotFound": "not implemented",
   "ErrorEmailRequired": "not implemented",
+  "ErrorEnvDefaultAvatarURL": "not implemented",
   "ErrorEnvJwtSecretKey": "not implemented",
   "ErrorEnvMaxLoginAttempts": "not implemented",
   "ErrorEnvNameGroup": "not implemented",
