@@ -63,6 +63,12 @@ class LoginService {
       }
 
       throw new AppError(400, i18n.__("ErrorLoginCredentials"));
+    } else {
+      await this.sessionRepository.incrementAttempts({
+        userId,
+        attempts: 0,
+        blocked: false,
+      });
     }
 
     const tokenPayload = {
