@@ -6,7 +6,7 @@ import { SessionController } from "@controllers/SessionController";
 const routes = Router();
 const sessionController = new SessionController();
 
-routes.post(RoutesPath.LOGIN_ROUTE, sessionController.login);
+routes.post(RoutesPath.LOGIN, sessionController.login);
 
 routes.post(RoutesPath.FORGOT_PASSWD, sessionController.forgotPasswd);
 

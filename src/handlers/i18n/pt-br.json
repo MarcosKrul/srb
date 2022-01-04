@@ -23,7 +23,7 @@
   "ErrorLoginCredentials": "E-mail e/ou senha incorretos.",
   "ErrorNoRequestResetPasswd": "Não foi possível realizar a operação pois o usuário não possui uma requisição para recuperar a senha.",
   "ErrorQueryTypecasting": "Não foi possível realizar a operação com as informações opcionais informadas.",
-  "ErrorReadEmployees": "Ocorreu um erro ao recuperar os funcionários.",
+  "ErrorReadUsers": "Ocorreu um erro ao recuperar os usuários.",
   "ErrorResetPasswdExpires": "Não foi possível realizar a operação pois excedeu o tempo limite. Por favor, realize um novo pedido de recuperação.",
   "ErrorUserGroupNotFound": "Ocorreu um erro ao definir o grupo do usuário. Por favor, entre em contato com um administrador.",
   "SuccessForgotPasswd": "Operação realizada com sucesso. Um e-mail foi enviado com as próximas instruções.",

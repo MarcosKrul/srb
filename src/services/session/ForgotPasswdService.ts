@@ -17,11 +17,10 @@ class ForgotPasswdService {
   public async execute(email: string): Promise<void> {
     if (!email) throw new AppError(400, i18n.__("ErrorEmailRequired"));
 
-    const hasUser = await this.sessionRepository.findOne(email);
-    if (!hasUser) throw new AppError(400, i18n.__("ErrorEmailNotFound"));
+    const userId = await this.sessionRepository.getIdByEmail(email);
+    if (!userId) throw new AppError(400, i18n.__("ErrorEmailNotFound"));
 
-    // eslint-disable-next-line func-names
-    const expiresIn = (function (): Date {
+    const expiresIn = ((): Date => {
       const date = new Date();
       date.setHours(date.getHours() + 1);
       return date;
@@ -32,7 +31,7 @@ class ForgotPasswdService {
     await this.sessionRepository.forgotPasswd({
       token,
       expiresIn,
-      userId: hasUser.userId,
+      userId,
     });
 
     // mandar email

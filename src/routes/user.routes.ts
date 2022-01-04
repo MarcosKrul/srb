@@ -1,18 +1,18 @@
 import { Router } from "express";
 
 import { RoutesPath } from "@common/RoutesPath";
-import { EmployeeController } from "@controllers/EmployeeController";
+import { UserController } from "@controllers/UserController";
 import { ensureUserAuthenticatedMiddleware } from "@middlewares/ensureUserAuthenticatedMiddleware";
 
 const routes = Router();
-const employeeController = new EmployeeController();
+const userController = new UserController();
 
 routes.get(
-  RoutesPath.READING_ROUTE,
+  RoutesPath.READING,
   ensureUserAuthenticatedMiddleware,
-  employeeController.read
+  userController.read
 );
 
-routes.post(RoutesPath.CREATION_ROUTE, employeeController.create);
+routes.post(RoutesPath.CREATION, userController.create);
 
 export { routes };

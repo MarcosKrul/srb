@@ -25,12 +25,10 @@ class ResetPasswdService {
     if (password !== confirmPassword)
       throw new AppError(400, i18n.__("ErrorDifferentPasswords"));
 
-    const hasUser = await this.sessionRepository.findOne(email || "");
-    if (!hasUser) throw new AppError(404, i18n.__("ErrorEmailNotFound"));
+    const userId = await this.sessionRepository.getIdByEmail(email);
+    if (!userId) throw new AppError(404, i18n.__("ErrorEmailNotFound"));
 
-    const credentials = await this.sessionRepository.resetPasswd(
-      hasUser.userId
-    );
+    const credentials = await this.sessionRepository.resetPasswd(userId);
 
     if (!credentials)
       throw new AppError(400, i18n.__("ErrorNoRequestResetPasswd"));
@@ -40,7 +38,7 @@ class ResetPasswdService {
 
     if (new Date() > credentials.expiresIn) {
       await clientConnection.$transaction([
-        this.sessionRepository.deleteResetPasswd(hasUser.userId),
+        this.sessionRepository.deleteResetPasswd(userId),
       ]);
 
       throw new AppError(400, i18n.__("ErrorResetPasswdExpires"));
@@ -49,13 +47,12 @@ class ResetPasswdService {
     const hashdPassword = await this.hashProvider.hash(password);
 
     const alterPasswdOperation = this.sessionRepository.alterPasswd(
-      hasUser.userId,
+      userId,
       hashdPassword
     );
 
-    const deleteResetPasswdOperation = this.sessionRepository.deleteResetPasswd(
-      hasUser.userId
-    );
+    const deleteResetPasswdOperation =
+      this.sessionRepository.deleteResetPasswd(userId);
 
     await clientConnection.$transaction([
       alterPasswdOperation,

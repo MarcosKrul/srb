@@ -1,13 +1,13 @@
 import { Router } from "express";
 
-import { RoutesPath } from "@common/RoutesPath";
+import { RoutesPrefix } from "@common/RoutesPrefix";
 
-import { routes as employeeRoutes } from "./employee.routes";
 import { routes as sessionRoutes } from "./session.routes";
+import { routes as userRoutes } from "./user.routes";
 
 const routes = Router();
 
-routes.use(RoutesPath.SESSION_ROUTES_PREFIX, sessionRoutes);
-routes.use(RoutesPath.EMPLOYEE_ROUTES_PREFIX, employeeRoutes);
+routes.use(RoutesPrefix.SESSION, sessionRoutes);
+routes.use(RoutesPrefix.USER, userRoutes);
 
 export { routes };

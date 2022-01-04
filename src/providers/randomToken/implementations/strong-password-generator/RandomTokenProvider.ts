@@ -13,7 +13,7 @@ import { IRandomTokenProvider } from "@providers/randomToken";
 
 class RandomTokenProvider implements IRandomTokenProvider {
   generateForgotPasswd(): string {
-    const token = randomString({ length: 8, characters: [upper, digits] });
+    const token = randomString({ length: 30, characters: [lower, digits] });
 
     if (!token) throw new AppError(500, "ErrorGenerateForgottenPasswdToken");
 

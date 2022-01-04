@@ -34,7 +34,7 @@ class SessionController {
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: i18n.__("ErrorLogin"),
+        message: AppError.getErrorMessage(error) || i18n.__("ErrorLogin"),
       });
     }
   }
@@ -54,7 +54,8 @@ class SessionController {
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: i18n.__("ErrorForgotPasswd"),
+        message:
+          AppError.getErrorMessage(error) || i18n.__("ErrorForgotPasswd"),
       });
     }
   }
@@ -80,7 +81,8 @@ class SessionController {
     } catch (error) {
       return res.status(AppError.getErrorStatusCode(error)).json({
         success: false,
-        message: i18n.__("ErrorForgotPasswd"),
+        message:
+          AppError.getErrorMessage(error) || i18n.__("ErrorForgotPasswd"),
       });
     }
   }

@@ -11,6 +11,10 @@ class AppError {
   public static getErrorStatusCode(error: any): number {
     return error instanceof AppError ? error.statusCode : 500;
   }
+
+  public static getErrorMessage(error: any): string | null {
+    return error instanceof AppError ? error.message : null;
+  }
 }
 
 export { AppError };

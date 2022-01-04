@@ -23,7 +23,7 @@
   "ErrorLoginCredentials": "not implemented",
   "ErrorNoRequestResetPasswd": "not implemented",
   "ErrorQueryTypecasting": "not implemented",
-  "ErrorReadEmployees": "not implemented",
+  "ErrorReadUsers": "not implemented",
   "ErrorResetPasswdExpires": "not implemented",
   "ErrorUserGroupNotFound": "not implemented",
   "SuccessForgotPasswd": "not implemented",

@@ -17,8 +17,7 @@ i18n.configure({
     __n: "translateN",
   },
   missingKeyFn(locale, value) {
-    // eslint-disable-next-line func-names
-    const message = (function (): string {
+    const message = ((): string => {
       switch (locale) {
         case Languages.ENGLISH:
           return "Internal server error.";

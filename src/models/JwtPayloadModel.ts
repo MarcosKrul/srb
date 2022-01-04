@@ -4,7 +4,7 @@ type JwtPayloadModel = {
   name: string;
   exp?: number;
   iat?: number;
-  roles: string[];
+  roles?: string[];
   type: "access_token" | "refresh_token";
 };
 

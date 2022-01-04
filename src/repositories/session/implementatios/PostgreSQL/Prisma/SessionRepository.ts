@@ -1,51 +1,49 @@
 import { clientConnection } from "@infra/database";
 import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
-import { Email, Session, PrismaPromise, ForgotPasswd } from "@prisma/client";
+import {
+  Email,
+  Session,
+  PrismaPromise,
+  ForgotPasswd,
+  User,
+} from "@prisma/client";
 import { ISessionRepository } from "@repositories/session";
 
 class SessionRepository implements ISessionRepository {
   constructor(private prisma = clientConnection) {}
 
-  async findOne(email: string): Promise<
-    | (Session & {
-        user: {
-          name: string;
-          userGroup: { roles: { role: string }[]; group: string };
-          profile: { avatar: string; bio: string } | null;
-          student: { grade: string; registration: string } | null;
-          employee: { cpf: string } | null;
-        };
-      })
-    | null
-  > {
-    const response = await this.prisma.session.findFirst({
-      where: { primary: email },
+  async findOne(email: string): Promise<any> {
+    const response = await this.prisma.email.findFirst({
+      where: { email, primary: true },
       include: {
         user: {
           select: {
             name: true,
-            userGroup: {
+            password: true,
+            session: {
               select: {
-                roles: { select: { role: true } },
-                group: true,
+                attempts: true,
+                blocked: true,
               },
             },
-            profile: {
-              select: { avatar: true, bio: true },
-            },
-            employee: {
-              select: { cpf: true },
-            },
-            student: {
-              select: { grade: true, registration: true },
-            },
+            userGroup: { select: { roles: true } },
+            profile: { select: { avatar: true, bio: true } },
           },
         },
       },
     });
 
     return response;
+  }
+
+  async getIdByEmail(email: string): Promise<string | null> {
+    const response = await this.prisma.email.findFirst({
+      where: { email },
+      select: { userId: true },
+    });
+
+    return response ? response.userId : null;
   }
 
   async incrementAttempts({
@@ -63,15 +61,15 @@ class SessionRepository implements ISessionRepository {
 
   save({
     email,
-    password,
     userId,
   }: CreateSessionRequestModel): PrismaPromise<Session | Email>[] {
     const mailOperation = this.prisma.email.create({
       data: {
-        primary: email,
+        email,
+        userId,
         advertising: true,
         notifications: true,
-        secondary: "",
+        primary: true,
       },
     });
 
@@ -79,8 +77,6 @@ class SessionRepository implements ISessionRepository {
       data: {
         attempts: 0,
         blocked: false,
-        password,
-        primary: email,
         userId,
       },
     });
@@ -123,9 +119,9 @@ class SessionRepository implements ISessionRepository {
     return operation;
   }
 
-  alterPasswd(userId: string, password: string): PrismaPromise<Session> {
-    const operation = this.prisma.session.update({
-      where: { userId },
+  alterPasswd(id: string, password: string): PrismaPromise<User> {
+    const operation = this.prisma.user.update({
+      where: { id },
       data: { password },
     });
 

@@ -16,17 +16,16 @@ class CreateSessionService {
 
   public async execute({
     email,
-    password,
     userId,
   }: CreateSessionRequestModel): Promise<PrismaPromise<Session | Email>[]> {
     if (!email) throw new AppError(400, i18n.__("ErrorEmailRequired"));
 
     if (!validate(email)) throw new AppError(400, i18n.__("ErrorEmailInvalid"));
 
-    const hasEmail = await this.sessionRepository.findOne(email);
-    if (hasEmail) throw new AppError(400, i18n.__("ErrorEmailAlreadyExits"));
+    const hasUser = await this.sessionRepository.getIdByEmail(email);
+    if (hasUser) throw new AppError(400, i18n.__("ErrorEmailAlreadyExits"));
 
-    const response = this.sessionRepository.save({ email, password, userId });
+    const response = this.sessionRepository.save({ email, userId });
     return response;
   }
 }

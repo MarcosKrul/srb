@@ -7,115 +7,97 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model Profile {
-  bio            String
-  avatar         String      @db.VarChar(255)
-
-  userId         String      @id                  @db.Uuid @map("user_id")
-  user           User        @relation(fields: [userId], references: [id])
-
-  @@map(name: "profile")
-}
-
-
-model Session {
-  attempts       Int         
-  blocked        Boolean
-  password       String      @db.VarChar(255)
-
-
-  primary        String      @db.VarChar(100)      @unique()
-  email          Email       @relation(fields: [primary], references: [primary])
-
-  userId         String      @id @db.Uuid @map("user_id")
-  user           User        @relation(fields: [userId], references: [id])
-
-  forgotPasswd   ForgotPasswd?
-
-  @@map(name: "session")
-}
-
-
-model ForgotPasswd {
-  userId         String      @id() @db.Uuid() @map("user_id")
-  session        Session     @relation(fields: [userId], references: [userId])
-
-  token          String      @db.VarChar(50)
-  expiresIn      DateTime    @db.Timestamp()  @map("expires_in")
-
-  @@map("forgot_passwd")
-}
-
-
 model UserGroup {
-  id             Int         @id()                 @default(autoincrement())
-  group          String      @db.VarChar(32)
+  id    Int    @id @default(autoincrement())
+  group String @db.VarChar(32)
 
-  user           User[]
-  roles          Roles[]
+  user  User[]
+  roles Roles[]
 
   @@map(name: "user_group")
 }
 
-
 model Roles {
-  id             Int         @id()                 @default(autoincrement())
-  role           String      @db.VarChar(32)
+  id   Int    @id @default(autoincrement())
+  role String @db.VarChar(32)
 
-  groupId        Int         @map("group_id")
-  group          UserGroup   @relation(fields: [groupId], references: [id])
+  groupId Int       @map("group_id")
+  group   UserGroup @relation(fields: [groupId], references: [id])
 
   @@map(name: "roles")
 }
 
+model Profile {
+  bio       String
+  avatar    String   @db.VarChar(255)
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userId String @id @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map(name: "profile")
+}
+
+model ForgotPasswd {
+  userId String @id @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+
+  token     String   @db.VarChar(50)
+  expiresIn DateTime @map("expires_in") @db.Timestamp
+
+  @@map("forgot_passwd")
+}
+
+model Session {
+  attempts Int
+  blocked  Boolean
+
+  userId String @id @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map(name: "session")
+}
 
 model Email {
-  id             Int         @id()                 @default(autoincrement())
-  advertising    Boolean     @db.Boolean()
-  notifications  Boolean     @db.Boolean()
-  primary        String      @db.VarChar(100)      @unique()
-  secondary      String      @db.VarChar(100)
+  id            Int     @id @default(autoincrement())
+  primary       Boolean
+  advertising   Boolean @db.Boolean
+  notifications Boolean @db.Boolean
+  email         String  @unique @db.VarChar(255)
 
-  session        Session?
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
 
   @@map(name: "email")
 }
 
-
 model User {
-  id             String      @id                   @db.Uuid
-  name           String      @db.VarChar(255)
-  createdAt      DateTime    @map("created_at")
+  id        String   @id @db.Uuid
+  name      String   @db.VarChar(255)
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  cpf       String?  @db.VarChar(16)
+  password String?   @db.VarChar(255)
 
-  groupId        Int         @map("group_id")
-  userGroup      UserGroup   @relation(fields: [groupId], references: [id])
+  groupId   Int       @map("group_id")
+  userGroup UserGroup @relation(fields: [groupId], references: [id])
 
-  student        Student?
-  employee       Employee?
-  profile        Profile?
-  session        Session?
+  email Email[]
+
+  student      Student?
+  profile      Profile?
+  session      Session?
+  forgotPasswd ForgotPasswd?
 
   @@map(name: "user")
 }
 
-
-model Employee {
-  id             String      @id                   @db.Uuid()
-  cpf            String      @db.VarChar(16)
-
-  user           User        @relation(fields: [id], references: [id])
-
-  @@map("employee")
-}
-
-
 model Student {
-  id             String      @id                   @db.Uuid
-  registration   String      @db.VarChar(32)
-  grade          String      @db.VarChar(32)
+  userId       String @id @map("user_id") @db.Uuid
+  registration String @db.VarChar(32)
+  grade        String @db.VarChar(32)
 
-  user           User        @relation(fields: [id], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   @@map(name: "student")
 }

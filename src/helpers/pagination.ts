@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IPaginationOptions } from "@infra/http";
@@ -6,7 +5,7 @@ import { IPaginationOptions } from "@infra/http";
 import { env } from "./env";
 
 const pagination = ({ size, page }: IPaginationOptions): [number, number] => {
-  const take = (function (): number {
+  const take = ((): number => {
     if (size) {
       const converted = Number(size);
       if (Number.isNaN(converted))
@@ -22,7 +21,7 @@ const pagination = ({ size, page }: IPaginationOptions): [number, number] => {
     return sizeDefault;
   })();
 
-  const skip = (function (): number {
+  const skip = ((): number => {
     if (page) {
       const converted = Number(page);
       if (Number.isNaN(converted))
