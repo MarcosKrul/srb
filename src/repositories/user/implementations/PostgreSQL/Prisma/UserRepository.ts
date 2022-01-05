@@ -1,7 +1,8 @@
 import { clientConnection } from "@infra/database";
 import { IPaginationResponse } from "@infra/http";
+import { UpdateUserProfileRequestModel } from "@models/UpdateUserProfileRequestModel";
 import { UserListResponseModel } from "@models/UserListResponseModel";
-import { User, PrismaPromise } from "@prisma/client";
+import { User, PrismaPromise, Profile } from "@prisma/client";
 import { IUserRepository } from "@repositories/user/models/IUserRepository";
 
 class UserRepository implements IUserRepository {
@@ -49,6 +50,27 @@ class UserRepository implements IUserRepository {
       })),
       totalItens,
     };
+  }
+
+  public async getById(id: string): Promise<User | null> {
+    const user = await this.prisma.user.findFirst({
+      where: { id },
+    });
+
+    return user;
+  }
+
+  public async updateProfile({
+    userId,
+    avatar,
+    bio,
+  }: UpdateUserProfileRequestModel): Promise<Profile> {
+    const updated = await this.prisma.profile.update({
+      where: { userId },
+      data: { avatar, bio },
+    });
+
+    return updated;
   }
 }
 
