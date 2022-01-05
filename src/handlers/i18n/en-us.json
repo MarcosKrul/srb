@@ -18,6 +18,7 @@
   "ErrorGeneratePassword": "not implemented",
   "ErrorGenericToken": "not implemented",
   "ErrorInternal": "not implemented",
+  "ErrorInvalidIdentifier": "not implemented",
   "ErrorInvalidResetPasswdToken": "not implemented",
   "ErrorLogin": "not implemented",
   "ErrorLoginBlockedAccount": "not implemented",

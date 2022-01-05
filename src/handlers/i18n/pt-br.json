@@ -18,6 +18,7 @@
   "ErrorGeneratePassword": "Ocorreu um erro ao gerar a senha do usuário. Por favor, entre em contato com um administrador.",
   "ErrorGenericToken": "Não foi possível validar a autenticidade do usuário.",
   "ErrorInternal": "Ocorreu um erro interno no servidor.",
+  "ErrorInvalidIdentifier": "A identificação do usuário é inválida.",
   "ErrorInvalidResetPasswdToken": "Não foi possível realizar a operação pois a credencial de acesso é inválida.",
   "ErrorLogin": "Ocorreu um erro ao realizar o login.",
   "ErrorLoginBlockedAccount": "Sua conta foi temporariamente bloqueada devido à excessivas tentativas de login.",

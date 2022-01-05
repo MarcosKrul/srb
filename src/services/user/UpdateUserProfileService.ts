@@ -7,13 +7,16 @@ import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
 import { UpdateUserProfileRequestModel } from "@models/UpdateUserProfileRequestModel";
 import { Profile } from "@prisma/client";
+import { IUniqueIdentifierProvider } from "@providers/uniqueIdentifier";
 import { IUserRepository } from "@repositories/user";
 
 @injectable()
 class UpdateUserProfileService {
   constructor(
     @inject("UserRepository")
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository,
+    @inject("UniqueIdentifierProvider")
+    private uniqueIdentifierProvider: IUniqueIdentifierProvider
   ) {}
 
   public async execute({
@@ -21,6 +24,9 @@ class UpdateUserProfileService {
     bio,
     userId,
   }: UpdateUserProfileRequestModel): Promise<Omit<Profile, "userId">> {
+    if (!this.uniqueIdentifierProvider.isValid(userId))
+      throw new AppError(404, i18n.__("ErrorInvalidIdentifier"));
+
     const hasUser = await this.userRepository.getById(userId);
 
     if (!hasUser) throw new AppError(404, i18n.__("ErrorUserNotFound"));
