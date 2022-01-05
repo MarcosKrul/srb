@@ -26,6 +26,8 @@
   "ErrorQueryTypecasting": "Não foi possível realizar a operação com as informações opcionais informadas.",
   "ErrorReadUsers": "Ocorreu um erro ao recuperar os usuários.",
   "ErrorResetPasswdExpires": "Não foi possível realizar a operação pois excedeu o tempo limite. Por favor, realize um novo pedido de recuperação.",
+  "ErrorUploadFileFileTooLarge": "O arquivo informado deve ser menor.",
+  "ErrorUploadFileUnsupportedMimetype": "O arquivo informado está em um formato não suportado.",
   "ErrorUserGroupNotFound": "Ocorreu um erro ao definir o grupo do usuário. Por favor, entre em contato com um administrador.",
   "SuccessForgotPasswd": "Operação realizada com sucesso. Um e-mail foi enviado com as próximas instruções.",
   "SuccessGeneric": "A operação foi realizada com sucesso.",

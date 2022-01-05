@@ -7,3 +7,9 @@
 
 dist
 node_modules
+
+tmp/uploads/avatar/*
+!tmp/uploads/avatar/.gitkeep
+
+tmp/uploads/files/*
+!tmp/uploads/files/.gitkeep

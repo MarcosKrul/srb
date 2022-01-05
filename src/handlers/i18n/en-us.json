@@ -26,6 +26,8 @@
   "ErrorQueryTypecasting": "not implemented",
   "ErrorReadUsers": "not implemented",
   "ErrorResetPasswdExpires": "not implemented",
+  "ErrorUploadFileFileTooLarge": "not implemented",
+  "ErrorUploadFileUnsupportedMimetype": "not implemented",
   "ErrorUserGroupNotFound": "not implemented",
   "SuccessForgotPasswd": "not implemented",
   "SuccessGeneric": "not implemented",
