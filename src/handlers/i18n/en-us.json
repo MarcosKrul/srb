@@ -27,6 +27,7 @@
   "ErrorQueryTypecasting": "not implemented",
   "ErrorReadUsers": "not implemented",
   "ErrorResetPasswdExpires": "not implemented",
+  "ErrorUpdateAnotherUserProfile": "not implemented",
   "ErrorUpdateUserProfile": "not implemented",
   "ErrorUploadFileFileTooLarge": "not implemented",
   "ErrorUploadFileUnsupportedMimetype": "not implemented",

@@ -1,7 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
+import { IMiddleware } from "@infra/http";
 import { Languages } from "@infra/utils";
 
 const validate = (value: string): Languages | null => {
@@ -15,11 +14,7 @@ const validate = (value: string): Languages | null => {
   return formatted;
 };
 
-const internationalizationMiddleware = async (
-  req: Request,
-  _: Response,
-  next: NextFunction
-): Promise<void | Response> => {
+const internationalizationMiddleware: IMiddleware = async (req, _, next) => {
   try {
     const { lang } = req.query;
     const { language } = req.headers;

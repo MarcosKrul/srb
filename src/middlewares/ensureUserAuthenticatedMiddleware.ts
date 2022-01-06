@@ -1,16 +1,15 @@
-import { NextFunction, Request, Response } from "express";
 import { container } from "tsyringe";
 
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
-import { IResponseMessage } from "@infra/http";
+import { IMiddleware } from "@infra/http";
 import { AuthenticationProvider } from "@providers/authentication";
 
-const ensureUserAuthenticatedMiddleware = async (
-  req: Request,
-  res: Response<IResponseMessage>,
-  next: NextFunction
-): Promise<void | Response> => {
+const ensureUserAuthenticatedMiddleware: IMiddleware = async (
+  req,
+  res,
+  next
+) => {
   try {
     const tokenHeader = req.headers.authorization;
 
@@ -58,6 +57,8 @@ const ensureUserAuthenticatedMiddleware = async (
         success: false,
         message: i18n.__("ErrorGenericToken"),
       });
+
+    Object.assign(req, { user: { id: payload.id } });
 
     return next();
   } catch (error) {

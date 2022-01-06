@@ -27,6 +27,7 @@
   "ErrorQueryTypecasting": "Não foi possível realizar a operação com as informações opcionais informadas.",
   "ErrorReadUsers": "Ocorreu um erro ao recuperar os usuários.",
   "ErrorResetPasswdExpires": "Não foi possível realizar a operação pois excedeu o tempo limite. Por favor, realize um novo pedido de recuperação.",
+  "ErrorUpdateAnotherUserProfile": "Não é possível atualizar o perfil de outro usuário.",
   "ErrorUpdateUserProfile": "Ocorreu um erro ao atualizar as informações do perfil do usuário.",
   "ErrorUploadFileFileTooLarge": "O arquivo informado deve ser menor.",
   "ErrorUploadFileUnsupportedMimetype": "O arquivo informado está em um formato não suportado.",
