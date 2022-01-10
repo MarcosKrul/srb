@@ -1,7 +1,7 @@
 type JwtPayloadModel = {
-  id: string;
+  id?: string;
   avatar?: string;
-  name: string;
+  name?: string;
   exp?: number;
   iat?: number;
   roles?: string[];

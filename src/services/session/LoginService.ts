@@ -31,14 +31,17 @@ class LoginService {
       user: hasUser,
       userId,
       email: userEmail,
-    } = await this.sessionRepository.findOne(email);
-    if (!hasUser) throw new AppError(400, i18n.__("ErrorLoginCredentials"));
+    } = (await this.sessionRepository.getUserByEmail(email)) || {};
+
+    if (!hasUser || !userId || !userEmail)
+      throw new AppError(400, i18n.__("ErrorLoginCredentials"));
 
     const maxAttempts = Number(env("MAX_LOGIN_ATTEMPTS"));
     if (!maxAttempts)
       throw new AppError(500, i18n.__("ErrorEnvMaxLoginAttempts"));
 
     if (
+      !hasUser.loginControl ||
       hasUser.loginControl.blocked ||
       hasUser.loginControl.attempts >= maxAttempts
     )
@@ -71,20 +74,16 @@ class LoginService {
       });
     }
 
-    const tokenPayload = {
+    const accessToken = this.authenticationProvider.generateToken({
       id: userId,
       avatar: hasUser.profile?.avatar,
       name: hasUser.name,
-    };
-
-    const accessToken = this.authenticationProvider.generateToken({
-      ...tokenPayload,
-      type: "access_token",
       roles: hasUser.userGroup.roles.map((item: { role: string }) => item.role),
+      type: "access_token",
     });
 
     const refreshToken = this.authenticationProvider.generateToken({
-      ...tokenPayload,
+      id: userId,
       type: "refresh_token",
     });
 

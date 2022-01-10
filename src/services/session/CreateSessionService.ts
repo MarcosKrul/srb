@@ -24,7 +24,7 @@ class CreateSessionService {
 
     if (!validate(email)) throw new AppError(400, i18n.__("ErrorEmailInvalid"));
 
-    const hasUser = await this.sessionRepository.getIdByEmail(email);
+    const hasUser = await this.sessionRepository.findOne(email);
     if (hasUser) throw new AppError(400, i18n.__("ErrorEmailAlreadyExits"));
 
     const response = this.sessionRepository.save({ email, userId });

@@ -1,6 +1,8 @@
 import { clientConnection } from "@infra/database";
 import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
+import { FindUserByEmailResponseModel } from "@models/FindUserByEmailResponseModel";
 import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
+import { GetUserByEmailResponseModel } from "@models/GetUserByEmailResponseModel";
 import {
   Email,
   LoginControl,
@@ -13,7 +15,7 @@ import { ISessionRepository } from "@repositories/session";
 class SessionRepository implements ISessionRepository {
   constructor(private prisma = clientConnection) {}
 
-  async findOne(email: string): Promise<any> {
+  async getUserByEmail(email: string): Promise<GetUserByEmailResponseModel> {
     const response = await this.prisma.email.findFirst({
       where: { email, primary: true },
       include: {
@@ -37,13 +39,19 @@ class SessionRepository implements ISessionRepository {
     return response;
   }
 
-  async getIdByEmail(email: string): Promise<string | null> {
+  async findOne(email: string): Promise<FindUserByEmailResponseModel | null> {
     const response = await this.prisma.email.findFirst({
-      where: { email },
-      select: { userId: true },
+      where: { email, primary: true },
+      select: {
+        userId: true,
+        email: true,
+        user: {
+          select: { name: true },
+        },
+      },
     });
 
-    return response ? response.userId : null;
+    return response;
   }
 
   async incrementAttempts({

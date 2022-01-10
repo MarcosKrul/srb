@@ -25,7 +25,7 @@ class ResetPasswdService {
     if (password !== confirmPassword)
       throw new AppError(400, i18n.__("ErrorDifferentPasswords"));
 
-    const userId = await this.sessionRepository.getIdByEmail(email);
+    const { userId } = (await this.sessionRepository.findOne(email)) || {};
     if (!userId) throw new AppError(404, i18n.__("ErrorEmailNotFound"));
 
     const credentials = await this.sessionRepository.resetPasswd(userId);
