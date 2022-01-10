@@ -7,7 +7,11 @@ type keys =
   | "PAGE_SIZE_DEFAULT"
   | "MAX_LOGIN_ATTEMPTS"
   | "DEFAULT_AVATAR_URL"
-  | "BASE_URL";
+  | "BASE_URL"
+  | "MAIL_HOST"
+  | "MAIL_PORT"
+  | "MAIL_USER"
+  | "MAIL_PASSWORD";
 
 const env = (key: keys): string | undefined => {
   if (!key) return undefined;
