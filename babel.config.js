@@ -23,6 +23,7 @@ module.exports = {
         "@providers": "./src/providers",
         "@models": "./src/models",
         "@routes": "./src/routes",
+        "@jobs": "./src/jobs",
       }}
     ],
   ],

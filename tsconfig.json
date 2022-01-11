@@ -38,7 +38,8 @@
       "@services/*": ["./src/services/*"],
       "@providers/*": ["./src/providers/*"],
       "@models/*": ["./src/models/*"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@jobs/*": ["./src/jobs/*"]
     }
   }
 }

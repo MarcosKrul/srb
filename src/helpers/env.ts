@@ -11,7 +11,11 @@ type keys =
   | "MAIL_HOST"
   | "MAIL_PORT"
   | "MAIL_USER"
-  | "MAIL_PASSWORD";
+  | "MAIL_PASSWORD"
+  | "REDIS_PORT"
+  | "REDIS_HOST"
+  | "REDIS_USERNAME"
+  | "REDIS_PASSWORD";
 
 const env = (key: keys): string | undefined => {
   if (!key) return undefined;
