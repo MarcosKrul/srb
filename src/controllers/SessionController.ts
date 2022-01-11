@@ -5,9 +5,11 @@ import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IResponseMessage } from "@infra/http";
 import { LoginResponseModel } from "@models/session/LoginResponseModel";
+import { RefreshTokenResponseModel } from "@models/session/RefreshTokenResponseModel";
 import {
   ForgotPasswdService,
   LoginService,
+  RefreshTokenService,
   ResetPasswdService,
 } from "@services/session";
 
@@ -83,6 +85,31 @@ class SessionController {
         success: false,
         message:
           AppError.getErrorMessage(error) || i18n.__("ErrorForgotPasswd"),
+      });
+    }
+  }
+
+  public async refreshToken(
+    req: Request,
+    res: Response<IResponseMessage<RefreshTokenResponseModel>>
+  ): Promise<Response> {
+    try {
+      const { refreshToken } = req.body;
+
+      const refreshTokenService = await container.resolve(RefreshTokenService);
+
+      const response = await refreshTokenService.execute(refreshToken);
+
+      return res.status(200).json({
+        success: true,
+        message: i18n.__("SuccessGeneric"),
+        data: response,
+      });
+    } catch (error) {
+      return res.status(AppError.getErrorStatusCode(error)).json({
+        success: false,
+        message:
+          AppError.getErrorMessage(error) || i18n.__("ErrorRefreshToken"),
       });
     }
   }

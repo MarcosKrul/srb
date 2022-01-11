@@ -12,6 +12,8 @@ class RoutesPath {
   public static readonly UPDATE_PROFILE: string = "/update/profile/:id";
 
   public static readonly AVATAR_FILES: string = "/files/avatar";
+
+  public static readonly REFRESH_TOKEN: string = "/refresh_token";
 }
 
 export { RoutesPath };

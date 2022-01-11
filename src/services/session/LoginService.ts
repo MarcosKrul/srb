@@ -83,7 +83,7 @@ class LoginService {
     });
 
     const refreshToken = this.authenticationProvider.generateToken({
-      id: userId,
+      email: userEmail,
       type: "refresh_token",
     });
 

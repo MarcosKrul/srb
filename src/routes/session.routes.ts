@@ -12,4 +12,6 @@ routes.post(RoutesPath.FORGOT_PASSWD, sessionController.forgotPasswd);
 
 routes.post(RoutesPath.RESET_PASSWD, sessionController.resetPasswd);
 
+routes.post(RoutesPath.REFRESH_TOKEN, sessionController.refreshToken);
+
 export { routes };
