@@ -2,6 +2,8 @@ import { inject, injectable } from "tsyringe";
 
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
+import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
+import { IMailProvider } from "@providers/mail";
 import { IRandomTokenProvider } from "@providers/randomToken";
 import { ISessionRepository } from "@repositories/session";
 
@@ -11,14 +13,19 @@ class ForgotPasswdService {
     @inject("SessionRepository")
     private sessionRepository: ISessionRepository,
     @inject("RandomTokenProvider")
-    private randomTokenProvider: IRandomTokenProvider
+    private randomTokenProvider: IRandomTokenProvider,
+    @inject("MailProvider")
+    private mailProvider: IMailProvider
   ) {}
 
-  public async execute(email: string): Promise<void> {
+  public async execute({
+    baseUrl,
+    email,
+  }: ForgotPasswdRequestModel): Promise<void> {
     if (!email) throw new AppError(400, i18n.__("ErrorEmailRequired"));
 
-    const userId = await this.sessionRepository.getIdByEmail(email);
-    if (!userId) throw new AppError(400, i18n.__("ErrorEmailNotFound"));
+    const hasUser = await this.sessionRepository.findOne(email);
+    if (!hasUser) throw new AppError(400, i18n.__("ErrorEmailNotFound"));
 
     const expiresIn = ((): Date => {
       const date = new Date();
@@ -31,10 +38,17 @@ class ForgotPasswdService {
     await this.sessionRepository.forgotPasswd({
       token,
       expiresIn,
-      userId,
+      userId: hasUser.userId,
     });
 
-    // mandar email
+    const url = `${baseUrl}/${token}`;
+
+    await this.mailProvider.send({
+      to: `${hasUser.user.name} <${hasUser.email}>`,
+      from: `SRB <srb@suporte.com.br>`,
+      subject: i18n.__("MailSubjectForgotPasswd"),
+      html: `Olá, ${hasUser.user.name}! </br></br> Para recuperar a sua senha, <a href="${url}">CLIQUE AQUI</a>.`,
+    });
   }
 }
 

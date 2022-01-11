@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2022-01-05T21:20:45.857Z",
+  "__export_date": "2022-01-11T17:39:34.376Z",
   "__export_source": "insomnia.desktop.app:v2021.7.2",
   "resources": [
     {
@@ -61,7 +61,7 @@
     {
       "_id": "req_99754b36d03c49b79c23cd4ffa74637b",
       "parentId": "fld_c41d07d506ee4579b714a3b66bdcd3bc",
-      "modified": 1641263804606,
+      "modified": 1641919836687,
       "created": 1634595538234,
       "url": "{{ _.base_url }}/{% request 'folder', '', 0 %}/{% request 'name', '', 0 %}",
       "name": "passwd/forgot",
@@ -69,7 +69,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"email\": \"joao@email.com\"\n}"
+        "text": "{\n\t\"email\": \"joao@email.com\",\n\t\"baseUrl\": \"http://localhost:4200/auth/reset_password\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -93,7 +93,7 @@
     {
       "_id": "req_7f0d4196de1a4ca386cdc729ff299faa",
       "parentId": "fld_c41d07d506ee4579b714a3b66bdcd3bc",
-      "modified": 1641407153323,
+      "modified": 1641916281614,
       "created": 1633558548978,
       "url": "{{ _.base_url }}/{% request 'folder', '', 0 %}/{% request 'name', '', 0 %}",
       "name": "login",
@@ -125,7 +125,7 @@
     {
       "_id": "req_37a14d8c7af34077b628d83cc34121f4",
       "parentId": "fld_fdc4fdb3b1204b9cbafd52bde9ba7471",
-      "modified": 1641407386336,
+      "modified": 1641836899587,
       "created": 1641407054326,
       "url": "{{ _.base_url }}/{% request 'folder', '', 0 %}/{% request 'name', '', 0 %}/432872c2dd136b16463fa721ae56d2e6@srb@anotacao-2021-10-25-102824.png",
       "name": "files/avatar",
@@ -163,9 +163,9 @@
     {
       "_id": "req_279cb63f51014507ba7ddabbdeb40e24",
       "parentId": "fld_fdc4fdb3b1204b9cbafd52bde9ba7471",
-      "modified": 1641417490706,
+      "modified": 1641836804941,
       "created": 1641318569674,
-      "url": "{{ _.base_url }}/{% request 'folder', '', 0 %}/{% request 'name', '', 0 %}/4b066aec-4724-4b33-b488-f3b15ee94438",
+      "url": " that{{ _.base_url }}/{% request 'folder', '', 0 %}/{% request 'name', '', 0 %}/3051b19e-091b-418d-acff-4cf89a9b5c92",
       "name": "update/profile",
       "description": "",
       "method": "POST",
@@ -215,7 +215,7 @@
     {
       "_id": "req_e392ccde24c94d0a9673bbbbd35dd8c9",
       "parentId": "fld_fdc4fdb3b1204b9cbafd52bde9ba7471",
-      "modified": 1641407065554,
+      "modified": 1641486811349,
       "created": 1632433973128,
       "url": "{{ _.base_url }}/{% request 'folder', '', 0 %}/{% request 'name', '', 0 %}",
       "name": "create",
@@ -251,7 +251,7 @@
     {
       "_id": "req_3e4989f20ae44b36b1e3cba78e9c29e8",
       "parentId": "fld_fdc4fdb3b1204b9cbafd52bde9ba7471",
-      "modified": 1641407249098,
+      "modified": 1641836895126,
       "created": 1632261123056,
       "url": "{{ _.base_url }}/{% request 'folder', '', 0 %}/{% request 'name', '', 0 %}?size=2&page=0",
       "name": "read",

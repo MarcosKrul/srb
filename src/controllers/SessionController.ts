@@ -41,11 +41,11 @@ class SessionController {
 
   public async forgotPasswd(req: Request, res: Response): Promise<Response> {
     try {
-      const { email } = req.body;
+      const { email, baseUrl } = req.body;
 
       const forgotPasswdService = await container.resolve(ForgotPasswdService);
 
-      await forgotPasswdService.execute(email);
+      await forgotPasswdService.execute({ email, baseUrl });
 
       return res.status(200).json({
         success: true,

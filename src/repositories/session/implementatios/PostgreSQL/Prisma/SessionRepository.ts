@@ -1,7 +1,7 @@
 import { clientConnection } from "@infra/database";
+import { CreateForgotPasswdModel } from "@models/CreateForgotPasswdModel";
 import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { FindUserByEmailResponseModel } from "@models/FindUserByEmailResponseModel";
-import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
 import { GetUserByEmailResponseModel } from "@models/GetUserByEmailResponseModel";
 import {
   Email,
@@ -96,7 +96,7 @@ class SessionRepository implements ISessionRepository {
     expiresIn,
     token,
     userId,
-  }: ForgotPasswdRequestModel): Promise<void> {
+  }: CreateForgotPasswdModel): Promise<void> {
     await this.prisma.forgotPasswd.upsert({
       where: { userId },
       update: {

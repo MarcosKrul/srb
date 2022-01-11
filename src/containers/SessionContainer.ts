@@ -5,6 +5,7 @@ import {
   IAuthenticationProvider,
 } from "@providers/authentication";
 import { HashProvider, IHashProvider } from "@providers/hash";
+import { IMailProvider, MailProvider } from "@providers/mail";
 import { SessionRepository, ISessionRepository } from "@repositories/session";
 
 container.registerSingleton<ISessionRepository>(
@@ -18,3 +19,5 @@ container.registerSingleton<IAuthenticationProvider>(
 );
 
 container.registerSingleton<IHashProvider>("HashProvider", HashProvider);
+
+container.registerSingleton<IMailProvider>("MailProvider", MailProvider);

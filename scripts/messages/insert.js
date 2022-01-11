@@ -9,7 +9,7 @@ const path = require("path");
 const [ _, __, key, locale, message ] = process.argv;
 console.log("LOG", locale, key, message)
 
-if ((!key || !key.startsWith("Error") && !key.startsWith("Success")) || !locale || !message) {
+if ((!key || !key.startsWith("Error") && !key.startsWith("Success") && !key.startsWith("Mail")) || !locale || !message) {
   console.log("ERROR: mal formatted");
   return;
 }

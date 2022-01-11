@@ -1,6 +1,6 @@
+import { CreateForgotPasswdModel } from "@models/CreateForgotPasswdModel";
 import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
 import { FindUserByEmailResponseModel } from "@models/FindUserByEmailResponseModel";
-import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
 import { GetUserByEmailResponseModel } from "@models/GetUserByEmailResponseModel";
 import {
   Email,
@@ -17,7 +17,7 @@ interface ISessionRepository {
   getUserByEmail(email: string): Promise<GetUserByEmailResponseModel>;
   findOne(email: string): Promise<FindUserByEmailResponseModel | null>;
   save(data: CreateSessionRequestModel): PrismaPromise<LoginControl | Email>[];
-  forgotPasswd(data: ForgotPasswdRequestModel): Promise<void>;
+  forgotPasswd(data: CreateForgotPasswdModel): Promise<void>;
   resetPasswd(userId: string): Promise<ForgotPasswd | null>;
   alterPasswd(userId: string, password: string): PrismaPromise<User>;
   deleteResetPasswd(userId: string): PrismaPromise<ForgotPasswd>;

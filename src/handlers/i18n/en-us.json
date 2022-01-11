@@ -33,6 +33,7 @@
   "ErrorUploadFileUnsupportedMimetype": "not implemented",
   "ErrorUserGroupNotFound": "not implemented",
   "ErrorUserNotFound": "not implemented",
+  "MailSubjectForgotPasswd": "not implemented",
   "SuccessForgotPasswd": "not implemented",
   "SuccessGeneric": "not implemented",
   "SuccessResetPasswd": "not implemented"
