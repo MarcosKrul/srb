@@ -41,13 +41,14 @@ class ForgotPasswdService {
       userId: hasUser.userId,
     });
 
-    const url = `${baseUrl}/${token}`;
-
     await this.mailProvider.send({
       to: `${hasUser.user.name} <${hasUser.email}>`,
       from: `SRB <srb@suporte.com.br>`,
       subject: i18n.__("MailSubjectForgotPasswd"),
-      html: `Olá, ${hasUser.user.name}! </br></br> Para recuperar a sua senha, <a href="${url}">CLIQUE AQUI</a>.`,
+      html: i18n.__mf("MailContentForgotPasswd", [
+        hasUser.user.name,
+        `${baseUrl}/${token}`,
+      ]),
     });
   }
 }

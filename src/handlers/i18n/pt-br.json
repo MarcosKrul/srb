@@ -33,6 +33,7 @@
   "ErrorUploadFileUnsupportedMimetype": "O arquivo informado está em um formato não suportado.",
   "ErrorUserGroupNotFound": "Ocorreu um erro ao definir o grupo do usuário. Por favor, entre em contato com um administrador.",
   "ErrorUserNotFound": "Não foi possível encontrar o usuário informado.",
+  "MailContentForgotPasswd": "Olá, {0}! </br></br> Para recuperar a sua senha, <a href=\"{1}\">CLIQUE AQUI</a>.",
   "MailSubjectForgotPasswd": "Suporte SRB - Recuperação de senha.",
   "SuccessForgotPasswd": "Operação realizada com sucesso. Um e-mail será enviado com as próximas instruções.",
   "SuccessGeneric": "A operação foi realizada com sucesso.",
