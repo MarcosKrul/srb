@@ -1,4 +1,4 @@
-import { CreateProfileModel } from "@models/CreateProfileModel";
+import { CreateProfileModel } from "@models/user/CreateProfileModel";
 import { PrismaPromise, Profile } from "@prisma/client";
 
 interface IProfileRepository {

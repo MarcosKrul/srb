@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
-import { ForgotPasswdRequestModel } from "@models/ForgotPasswdRequestModel";
+import { ForgotPasswdRequestModel } from "@models/session/ForgotPasswdRequestModel";
 import { IMailProvider } from "@providers/mail";
 import { IRandomTokenProvider } from "@providers/randomToken";
 import { ISessionRepository } from "@repositories/session";

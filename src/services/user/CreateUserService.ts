@@ -5,7 +5,7 @@ import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
 import { clientConnection } from "@infra/database";
-import { CreateUserRequestModel } from "@models/CreateUserRequestModel";
+import { CreateUserRequestModel } from "@models/user/CreateUserRequestModel";
 import { User, PrismaPromise, Email, LoginControl } from "@prisma/client";
 import { IHashProvider } from "@providers/hash";
 import { IRandomTokenProvider } from "@providers/randomToken";

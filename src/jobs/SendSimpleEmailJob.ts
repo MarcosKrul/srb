@@ -1,6 +1,6 @@
 import { MailTransporter } from "@infra/mail";
 import { IJob } from "@infra/queue/models/IJob";
-import { SendEmailModel } from "@models/SendEmailModel";
+import { SendEmailModel } from "@models/common/SendEmailModel";
 
 const job: IJob<SendEmailModel> = {
   key: "SendSimpleEmailJob",

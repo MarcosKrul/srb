@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { pagination } from "@helpers/pagination";
 import { IPaginationOptions, IPaginationResponse } from "@infra/http";
-import { UserListResponseModel } from "@models/UserListResponseModel";
+import { UserListResponseModel } from "@models/user/UserListResponseModel";
 import { IUserRepository } from "@repositories/user";
 
 @injectable()

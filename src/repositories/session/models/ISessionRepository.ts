@@ -1,7 +1,7 @@
-import { CreateForgotPasswdModel } from "@models/CreateForgotPasswdModel";
-import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
-import { FindUserByEmailResponseModel } from "@models/FindUserByEmailResponseModel";
-import { GetUserByEmailResponseModel } from "@models/GetUserByEmailResponseModel";
+import { CreateForgotPasswdModel } from "@models/session/CreateForgotPasswdModel";
+import { CreateSessionRequestModel } from "@models/session/CreateSessionRequestModel";
+import { FindUserByEmailResponseModel } from "@models/user/FindUserByEmailResponseModel";
+import { GetUserByEmailResponseModel } from "@models/user/GetUserByEmailResponseModel";
 import {
   Email,
   LoginControl,

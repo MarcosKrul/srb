@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { clientConnection } from "@infra/database";
-import { ResetPasswdRequestModel } from "@models/ResetPasswdRequestModel";
+import { ResetPasswdRequestModel } from "@models/session/ResetPasswdRequestModel";
 import { IHashProvider } from "@providers/hash";
 import { ISessionRepository } from "@repositories/session";
 

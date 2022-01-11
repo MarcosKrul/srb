@@ -5,7 +5,7 @@ import { RoutesPrefix } from "@common/RoutesPrefix";
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
-import { UpdateUserProfileRequestModel } from "@models/UpdateUserProfileRequestModel";
+import { UpdateUserProfileRequestModel } from "@models/user/UpdateUserProfileRequestModel";
 import { Profile } from "@prisma/client";
 import { IUniqueIdentifierProvider } from "@providers/uniqueIdentifier";
 import { IUserRepository } from "@repositories/user";

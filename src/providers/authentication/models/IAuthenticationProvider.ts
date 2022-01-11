@@ -1,4 +1,4 @@
-import { JwtPayloadModel } from "@models/JwtPayloadModel";
+import { JwtPayloadModel } from "@models/common/JwtPayloadModel";
 
 interface IAuthenticationProvider {
   generateToken(payload: JwtPayloadModel): string;

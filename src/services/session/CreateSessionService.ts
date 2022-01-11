@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
-import { CreateSessionRequestModel } from "@models/CreateSessionRequestModel";
+import { CreateSessionRequestModel } from "@models/session/CreateSessionRequestModel";
 import { Email, LoginControl, PrismaPromise } from "@prisma/client";
 import { ISessionRepository } from "@repositories/session";
 

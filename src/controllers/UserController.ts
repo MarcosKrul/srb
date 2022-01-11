@@ -4,8 +4,8 @@ import { container } from "tsyringe";
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IPaginationResponse, IResponseMessage } from "@infra/http";
-import { UpdateUserProfileRequestModel } from "@models/UpdateUserProfileRequestModel";
-import { UserListResponseModel } from "@models/UserListResponseModel";
+import { UpdateUserProfileRequestModel } from "@models/user/UpdateUserProfileRequestModel";
+import { UserListResponseModel } from "@models/user/UserListResponseModel";
 import { Profile, User } from "@prisma/client";
 import {
   CreateUserService,

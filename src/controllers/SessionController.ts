@@ -4,7 +4,7 @@ import { container } from "tsyringe";
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { IResponseMessage } from "@infra/http";
-import { LoginResponseModel } from "@models/LoginResponseModel";
+import { LoginResponseModel } from "@models/session/LoginResponseModel";
 import {
   ForgotPasswdService,
   LoginService,

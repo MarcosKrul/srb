@@ -3,7 +3,7 @@ import { sign, verify as jwtVerify, decode as jwtDecode } from "jsonwebtoken";
 import { i18n } from "@config/i18n";
 import { AppError } from "@error/AppError";
 import { env } from "@helpers/env";
-import { JwtPayloadModel } from "@models/JwtPayloadModel";
+import { JwtPayloadModel } from "@models/common/JwtPayloadModel";
 import { IAuthenticationProvider } from "@providers/authentication";
 
 class AuthenticationProvider implements IAuthenticationProvider {

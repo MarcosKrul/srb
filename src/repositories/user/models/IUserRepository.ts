@@ -1,6 +1,6 @@
 import { IPaginationResponse } from "@infra/http";
-import { UpdateUserProfileRequestModel } from "@models/UpdateUserProfileRequestModel";
-import { UserListResponseModel } from "@models/UserListResponseModel";
+import { UpdateUserProfileRequestModel } from "@models/user/UpdateUserProfileRequestModel";
+import { UserListResponseModel } from "@models/user/UserListResponseModel";
 import { User, PrismaPromise, Profile } from "@prisma/client";
 
 interface IUserRepository {
